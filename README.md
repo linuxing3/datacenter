@@ -1,7 +1,5 @@
 # 基于go-zero 框架写的一个数据中台中心
 
-### 详细介绍 [我是如何用go-zero实现一个中台系统的](https://www.cnblogs.com/jackluo/p/14148518.html)
-
 ## 架构图
 ![中台系统](https://img2020.cnblogs.com/blog/203395/202012/203395-20201217094615171-335437652.jpg "中台架构")
 
@@ -52,39 +50,21 @@ es
 ```bash
 ➜ ~ docker exec -it es /bin/bash
 [root@04b37b58f104 elasticsearch]# sh /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
-Initiating the setup of passwords for reserved users elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.
-The passwords will be randomly generated and printed to the console.
-Please confirm that you would like to continue [y/N]y
-
-
-Changed password for user apm_system
-PASSWORD apm_system = iKVpVyFFTC8qEXvJILi2
-
-Changed password for user kibana
-PASSWORD kibana = DnDgQRRgkuyV8YqTrxbk
-
-Changed password for user logstash_system
-PASSWORD logstash_system = aqjVEdMsG7P2CXm9sQNk
-
-Changed password for user beats_system
-PASSWORD beats_system = Oleo1gQhli6tGaWuHz96
-
-Changed password for user remote_monitoring_user
-PASSWORD remote_monitoring_user = rX9CsBLM2c3ow9sH6Iud
-
+...
 Changed password for user elastic
-PASSWORD elastic = yi4cxxdiz86pRKOoTAcm
+PASSWORD elastic = somepassword
 ```
 ### 看到上面最后行 
 ```
 Changed password for user elastic
-PASSWORD elastic = yi4cxxdiz86pRKOoTAcm
+PASSWORD elastic = somepassword
 ```
-### 得到elastic 的帐号: elastic ,密码: yi4cxxdiz86pRKOoTAcm 将这个填入search/rpc/search.yaml 文件中
+### 得到elastic 的帐号: elastic ,密码: somepassword 将这个填入search/rpc/search.yaml 文件中
 
 
     接着导入 sql.sql到 mysql数据中 ,如果有工具自行导入,下面仅参考
 ```
+docker exec -it mysql /bin/bash
 mysql -uroot -padmin
 mysql > set name utf8
 mysql > create databse datacenter
@@ -94,12 +74,12 @@ mysql > source sql.sql
 ### 然后分别把配置文件 ,文件下面分别对应了一个rpc.example.yaml的文件，复制，基本就没有问题
 
 ```
-vi etc/datacenter-api.yaml #网关配置
-vi user/rpc/etc/rpc.yaml #用户信息配置
-vi common/rpc/etc/rpc.yaml #公共配置
-vi votes/rpc/etc/rpc.yaml #投票配置
-vi search/rpc/etc/search.yaml #搜索配置
-vi questions/rpc/etc/questions.yaml #抽奖配置
+cat etc/datacenter-api.yaml #网关配置
+cat user/rpc/etc/rpc.yaml #用户信息配置
+cat common/rpc/etc/rpc.yaml #公共配置
+cat votes/rpc/etc/rpc.yaml #投票配置
+cat search/rpc/etc/search.yaml #搜索配置
+cat questions/rpc/etc/questions.yaml #抽奖配置
 ```
 ### 然后启动 服务 ,应该我们要启动
 ```
@@ -126,3 +106,47 @@ tail -F questions/rpc/nohup.out #问答抽奖
 ```
 
 ### 在postman 导入数据 数据中台中心.postman_collection.json  就可以很愉快的玩耍了
+
+
+## New RPC
+
+greet.proto
+
+```
+Message greetReq {
+	
+}
+service {
+	rpc Login() ()
+}
+```
+
+```bash
+goctl rpc new greet
+goctl rpc template -o greet.proto
+goctl rpc proto -src greet.proto -dir .
+```
+
+## New API
+
+greet.api
+
+```
+info
+type greetReq {
+	String Name
+}
+type greetRsp {
+	String Name
+}
+service {
+	handler getName(greetReq) (greetRsp)
+}
+```
+
+
+```bash
+go api new greet
+go run greet.go -f etc/greet-api.yaml
+go java -api greet.api -dir .
+```
