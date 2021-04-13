@@ -18,7 +18,7 @@ type Config struct {
 	VotesRpc     zrpc.RpcClientConf
 	SearchRpc    zrpc.RpcClientConf
 	QuestionsRpc zrpc.RpcClientConf
-	// add movie rpc
+	// FIXED: add movie rpc
 	MoviesRpc 	 zrpc.RpcClientConf
 
 	CacheRedis cache.ClusterConf

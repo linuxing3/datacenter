@@ -22,10 +22,10 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	srv := server.NewMovieServer(ctx)
+	srv := server.NewMoviesServer(ctx)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		movie.RegisterMovieServer(grpcServer, srv)
+		movie.RegisterMoviesServer(grpcServer, srv)
 	})
 	defer s.Stop()
 

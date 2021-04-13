@@ -24,7 +24,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type MovieRequest struct {
+type MovieReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -32,8 +32,8 @@ type MovieRequest struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *MovieRequest) Reset() {
-	*x = MovieRequest{}
+func (x *MovieReq) Reset() {
+	*x = MovieReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_movie_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +41,13 @@ func (x *MovieRequest) Reset() {
 	}
 }
 
-func (x *MovieRequest) String() string {
+func (x *MovieReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MovieRequest) ProtoMessage() {}
+func (*MovieReq) ProtoMessage() {}
 
-func (x *MovieRequest) ProtoReflect() protoreflect.Message {
+func (x *MovieReq) ProtoReflect() protoreflect.Message {
 	mi := &file_movie_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,31 +59,28 @@ func (x *MovieRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MovieRequest.ProtoReflect.Descriptor instead.
-func (*MovieRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use MovieReq.ProtoReflect.Descriptor instead.
+func (*MovieReq) Descriptor() ([]byte, []int) {
 	return file_movie_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *MovieRequest) GetId() string {
+func (x *MovieReq) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-type MovieResponse struct {
+type MovieListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title       string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Url         string `protobuf:"bytes,4,opt,name=url,proto3" json:"url,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
 }
 
-func (x *MovieResponse) Reset() {
-	*x = MovieResponse{}
+func (x *MovieListReq) Reset() {
+	*x = MovieListReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_movie_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -91,13 +88,13 @@ func (x *MovieResponse) Reset() {
 	}
 }
 
-func (x *MovieResponse) String() string {
+func (x *MovieListReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MovieResponse) ProtoMessage() {}
+func (*MovieListReq) ProtoMessage() {}
 
-func (x *MovieResponse) ProtoReflect() protoreflect.Message {
+func (x *MovieListReq) ProtoReflect() protoreflect.Message {
 	mi := &file_movie_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -109,49 +106,30 @@ func (x *MovieResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MovieResponse.ProtoReflect.Descriptor instead.
-func (*MovieResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MovieListReq.ProtoReflect.Descriptor instead.
+func (*MovieListReq) Descriptor() ([]byte, []int) {
 	return file_movie_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *MovieResponse) GetId() string {
+func (x *MovieListReq) GetIds() []string {
 	if x != nil {
-		return x.Id
+		return x.Ids
 	}
-	return ""
+	return nil
 }
 
-func (x *MovieResponse) GetTitle() string {
-	if x != nil {
-		return x.Title
-	}
-	return ""
-}
-
-func (x *MovieResponse) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *MovieResponse) GetUrl() string {
-	if x != nil {
-		return x.Url
-	}
-	return ""
-}
-
-type MovieListResponse struct {
+type MovieResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Movies []*MovieResponse `protobuf:"bytes,1,rep,name=movies,proto3" json:"movies,omitempty"`
+	Title       string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Url         string `protobuf:"bytes,3,opt,name=url,proto3" json:"url,omitempty"`
 }
 
-func (x *MovieListResponse) Reset() {
-	*x = MovieListResponse{}
+func (x *MovieResp) Reset() {
+	*x = MovieResp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_movie_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -159,13 +137,13 @@ func (x *MovieListResponse) Reset() {
 	}
 }
 
-func (x *MovieListResponse) String() string {
+func (x *MovieResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MovieListResponse) ProtoMessage() {}
+func (*MovieResp) ProtoMessage() {}
 
-func (x *MovieListResponse) ProtoReflect() protoreflect.Message {
+func (x *MovieResp) ProtoReflect() protoreflect.Message {
 	mi := &file_movie_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -177,14 +155,75 @@ func (x *MovieListResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MovieListResponse.ProtoReflect.Descriptor instead.
-func (*MovieListResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MovieResp.ProtoReflect.Descriptor instead.
+func (*MovieResp) Descriptor() ([]byte, []int) {
 	return file_movie_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *MovieListResponse) GetMovies() []*MovieResponse {
+func (x *MovieResp) GetTitle() string {
 	if x != nil {
-		return x.Movies
+		return x.Title
+	}
+	return ""
+}
+
+func (x *MovieResp) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *MovieResp) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+type MovieListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Data []*MovieResp `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *MovieListResp) Reset() {
+	*x = MovieListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_movie_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MovieListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MovieListResp) ProtoMessage() {}
+
+func (x *MovieListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_movie_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MovieListResp.ProtoReflect.Descriptor instead.
+func (*MovieListResp) Descriptor() ([]byte, []int) {
+	return file_movie_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *MovieListResp) GetData() []*MovieResp {
+	if x != nil {
+		return x.Data
 	}
 	return nil
 }
@@ -192,36 +231,29 @@ func (x *MovieListResponse) GetMovies() []*MovieResponse {
 var File_movie_proto protoreflect.FileDescriptor
 
 var file_movie_proto_rawDesc = []byte{
-	0x0a, 0x0b, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x05, 0x6d,
-	0x6f, 0x76, 0x69, 0x65, 0x22, 0x1e, 0x0a, 0x0c, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x02, 0x69, 0x64, 0x22, 0x69, 0x0a, 0x0d, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64,
-	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x10, 0x0a,
-	0x03, 0x75, 0x72, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22,
-	0x41, 0x0a, 0x11, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c, 0x0a, 0x06, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f, 0x76,
-	0x69, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x06, 0x6d, 0x6f, 0x76, 0x69,
-	0x65, 0x73, 0x32, 0xdb, 0x01, 0x0a, 0x05, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x33, 0x0a, 0x06,
-	0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x12, 0x13, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x6d,
-	0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x6d, 0x6f,
-	0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x33, 0x0a, 0x06, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x12, 0x13, 0x2e, 0x6d, 0x6f,
-	0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x14, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x06, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x12, 0x13, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f,
-	0x76, 0x69, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x06, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x13, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x6d, 0x6f,
-	0x76, 0x69, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x6d, 0x6f, 0x76,
-	0x69, 0x65, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x0a, 0x0b, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x06, 0x6d,
+	0x6f, 0x76, 0x69, 0x65, 0x73, 0x22, 0x1a, 0x0a, 0x08, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65,
+	0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
+	0x64, 0x22, 0x20, 0x0a, 0x0c, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x71, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x03,
+	0x69, 0x64, 0x73, 0x22, 0x55, 0x0a, 0x09, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x36, 0x0a, 0x0d, 0x4d, 0x6f,
+	0x76, 0x69, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x25, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x6d, 0x6f, 0x76, 0x69,
+	0x65, 0x73, 0x2e, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x73, 0x70, 0x52, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x32, 0x6d, 0x0a, 0x06, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x12, 0x31, 0x0a, 0x06,
+	0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x12, 0x10, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e,
+	0x4d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65,
+	0x73, 0x2e, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12,
+	0x30, 0x0a, 0x05, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x14, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65,
+	0x73, 0x2e, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x11,
+	0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -236,24 +268,21 @@ func file_movie_proto_rawDescGZIP() []byte {
 	return file_movie_proto_rawDescData
 }
 
-var file_movie_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_movie_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_movie_proto_goTypes = []interface{}{
-	(*MovieRequest)(nil),      // 0: movie.movieRequest
-	(*MovieResponse)(nil),     // 1: movie.movieResponse
-	(*MovieListResponse)(nil), // 2: movie.movieListResponse
+	(*MovieReq)(nil),      // 0: movies.MovieReq
+	(*MovieListReq)(nil),  // 1: movies.MovieListReq
+	(*MovieResp)(nil),     // 2: movies.MovieResp
+	(*MovieListResp)(nil), // 3: movies.MovieListResp
 }
 var file_movie_proto_depIdxs = []int32{
-	1, // 0: movie.movieListResponse.movies:type_name -> movie.movieResponse
-	0, // 1: movie.Movie.Search:input_type -> movie.movieRequest
-	0, // 2: movie.Movie.Create:input_type -> movie.movieRequest
-	0, // 3: movie.Movie.Delete:input_type -> movie.movieRequest
-	0, // 4: movie.Movie.Update:input_type -> movie.movieRequest
-	1, // 5: movie.Movie.Search:output_type -> movie.movieResponse
-	1, // 6: movie.Movie.Create:output_type -> movie.movieResponse
-	1, // 7: movie.Movie.Delete:output_type -> movie.movieResponse
-	1, // 8: movie.Movie.Update:output_type -> movie.movieResponse
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
+	2, // 0: movies.MovieListResp.data:type_name -> movies.MovieResp
+	0, // 1: movies.Movies.Movies:input_type -> movies.MovieReq
+	1, // 2: movies.Movies.Movie:input_type -> movies.MovieListReq
+	3, // 3: movies.Movies.Movies:output_type -> movies.MovieListResp
+	2, // 4: movies.Movies.Movie:output_type -> movies.MovieResp
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -266,7 +295,7 @@ func file_movie_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_movie_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MovieRequest); i {
+			switch v := v.(*MovieReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -278,7 +307,7 @@ func file_movie_proto_init() {
 			}
 		}
 		file_movie_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MovieResponse); i {
+			switch v := v.(*MovieListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -290,7 +319,19 @@ func file_movie_proto_init() {
 			}
 		}
 		file_movie_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MovieListResponse); i {
+			switch v := v.(*MovieResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_movie_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MovieListResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -308,7 +349,7 @@ func file_movie_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_movie_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -330,180 +371,108 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// MovieClient is the client API for Movie service.
+// MoviesClient is the client API for Movies service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type MovieClient interface {
-	Search(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error)
-	Create(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error)
-	Delete(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error)
-	Update(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error)
+type MoviesClient interface {
+	Movies(ctx context.Context, in *MovieReq, opts ...grpc.CallOption) (*MovieListResp, error)
+	Movie(ctx context.Context, in *MovieListReq, opts ...grpc.CallOption) (*MovieResp, error)
 }
 
-type movieClient struct {
+type moviesClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewMovieClient(cc grpc.ClientConnInterface) MovieClient {
-	return &movieClient{cc}
+func NewMoviesClient(cc grpc.ClientConnInterface) MoviesClient {
+	return &moviesClient{cc}
 }
 
-func (c *movieClient) Search(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error) {
-	out := new(MovieResponse)
-	err := c.cc.Invoke(ctx, "/movie.Movie/Search", in, out, opts...)
+func (c *moviesClient) Movies(ctx context.Context, in *MovieReq, opts ...grpc.CallOption) (*MovieListResp, error) {
+	out := new(MovieListResp)
+	err := c.cc.Invoke(ctx, "/movies.Movies/Movies", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *movieClient) Create(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error) {
-	out := new(MovieResponse)
-	err := c.cc.Invoke(ctx, "/movie.Movie/Create", in, out, opts...)
+func (c *moviesClient) Movie(ctx context.Context, in *MovieListReq, opts ...grpc.CallOption) (*MovieResp, error) {
+	out := new(MovieResp)
+	err := c.cc.Invoke(ctx, "/movies.Movies/Movie", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *movieClient) Delete(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error) {
-	out := new(MovieResponse)
-	err := c.cc.Invoke(ctx, "/movie.Movie/Delete", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+// MoviesServer is the server API for Movies service.
+type MoviesServer interface {
+	Movies(context.Context, *MovieReq) (*MovieListResp, error)
+	Movie(context.Context, *MovieListReq) (*MovieResp, error)
 }
 
-func (c *movieClient) Update(ctx context.Context, in *MovieRequest, opts ...grpc.CallOption) (*MovieResponse, error) {
-	out := new(MovieResponse)
-	err := c.cc.Invoke(ctx, "/movie.Movie/Update", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+// UnimplementedMoviesServer can be embedded to have forward compatible implementations.
+type UnimplementedMoviesServer struct {
 }
 
-// MovieServer is the server API for Movie service.
-type MovieServer interface {
-	Search(context.Context, *MovieRequest) (*MovieResponse, error)
-	Create(context.Context, *MovieRequest) (*MovieResponse, error)
-	Delete(context.Context, *MovieRequest) (*MovieResponse, error)
-	Update(context.Context, *MovieRequest) (*MovieResponse, error)
+func (*UnimplementedMoviesServer) Movies(context.Context, *MovieReq) (*MovieListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Movies not implemented")
+}
+func (*UnimplementedMoviesServer) Movie(context.Context, *MovieListReq) (*MovieResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Movie not implemented")
 }
 
-// UnimplementedMovieServer can be embedded to have forward compatible implementations.
-type UnimplementedMovieServer struct {
+func RegisterMoviesServer(s *grpc.Server, srv MoviesServer) {
+	s.RegisterService(&_Movies_serviceDesc, srv)
 }
 
-func (*UnimplementedMovieServer) Search(context.Context, *MovieRequest) (*MovieResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
-}
-func (*UnimplementedMovieServer) Create(context.Context, *MovieRequest) (*MovieResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
-}
-func (*UnimplementedMovieServer) Delete(context.Context, *MovieRequest) (*MovieResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
-}
-func (*UnimplementedMovieServer) Update(context.Context, *MovieRequest) (*MovieResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
-}
-
-func RegisterMovieServer(s *grpc.Server, srv MovieServer) {
-	s.RegisterService(&_Movie_serviceDesc, srv)
-}
-
-func _Movie_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MovieRequest)
+func _Movies_Movies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MovieReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MovieServer).Search(ctx, in)
+		return srv.(MoviesServer).Movies(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/movie.Movie/Search",
+		FullMethod: "/movies.Movies/Movies",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MovieServer).Search(ctx, req.(*MovieRequest))
+		return srv.(MoviesServer).Movies(ctx, req.(*MovieReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Movie_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MovieRequest)
+func _Movies_Movie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MovieListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MovieServer).Create(ctx, in)
+		return srv.(MoviesServer).Movie(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/movie.Movie/Create",
+		FullMethod: "/movies.Movies/Movie",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MovieServer).Create(ctx, req.(*MovieRequest))
+		return srv.(MoviesServer).Movie(ctx, req.(*MovieListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Movie_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MovieRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MovieServer).Delete(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/movie.Movie/Delete",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MovieServer).Delete(ctx, req.(*MovieRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Movie_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MovieRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MovieServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/movie.Movie/Update",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MovieServer).Update(ctx, req.(*MovieRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _Movie_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "movie.Movie",
-	HandlerType: (*MovieServer)(nil),
+var _Movies_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "movies.Movies",
+	HandlerType: (*MoviesServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Search",
-			Handler:    _Movie_Search_Handler,
+			MethodName: "Movies",
+			Handler:    _Movies_Movies_Handler,
 		},
 		{
-			MethodName: "Create",
-			Handler:    _Movie_Create_Handler,
-		},
-		{
-			MethodName: "Delete",
-			Handler:    _Movie_Delete_Handler,
-		},
-		{
-			MethodName: "Update",
-			Handler:    _Movie_Update_Handler,
+			MethodName: "Movie",
+			Handler:    _Movies_Movie_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

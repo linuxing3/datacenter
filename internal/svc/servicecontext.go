@@ -9,6 +9,8 @@ import (
 	"datacenter/search/rpc/searchclient"
 	"datacenter/shared"
 	"datacenter/user/rpc/userclient"
+	// FIXED: 调用rpcclient
+	"datacenter/movies/rpc/movieclient"
 	"datacenter/votes/rpc/votesclient"
 	"fmt"
 	"net/http"
@@ -32,6 +34,7 @@ type ServiceContext struct {
 	UserRpc          userclient.User           //用户
 	CommonRpc        commonclient.Common       //公共
 	VotesRpc         votesclient.Votes         //投票
+	MoviesRpc        movieclient.Movies         //FIXED: movies
 	SearchRpc        searchclient.Search       //搜索
 	QuestionsRpc     questionsclient.Questions //问答抽奖
 	MovieRpc         movieclient.Movies //问答抽奖
@@ -50,7 +53,8 @@ func timeInterceptor(ctx context.Context, method string, req, reply interface{},
 	return nil
 }
 func NewServiceContext(c config.Config) *ServiceContext {
-
+	// FIXED: add new zrpcclient to context
+	mr := movieclient.NewMovies(zrpc.MustNewClient(c.MoviesRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	ur := userclient.NewUser(zrpc.MustNewClient(c.UserRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	cr := commonclient.NewCommon(zrpc.MustNewClient(c.CommonRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	vr := votesclient.NewVotes(zrpc.MustNewClient(c.VotesRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
@@ -68,6 +72,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		UserRpc:          ur,
 		CommonRpc:        cr,
 		VotesRpc:         vr,
+		MoviesRpc:        mr,
 		SearchRpc:        sr,
 		QuestionsRpc:     qr,
 		Cache:            ca,

@@ -9,12 +9,28 @@ import (
 	search "datacenter/internal/handler/search"
 	user "datacenter/internal/handler/user"
 	votes "datacenter/internal/handler/votes"
+	// TODO: add movie handler
+	movie "datacenter/internal/handler/movies"
 	"datacenter/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
 )
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
+	// TODO: Add movie api routes
+	engine.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Usercheck},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/movies/info",
+					Handler: movie.MovieInfoHandler(serverCtx),
+				},
+			}...,
+		),
+	)
+
 	engine.AddRoutes(
 		[]rest.Route{
 			{
