@@ -34,6 +34,7 @@ type ServiceContext struct {
 	VotesRpc         votesclient.Votes         //投票
 	SearchRpc        searchclient.Search       //搜索
 	QuestionsRpc     questionsclient.Questions //问答抽奖
+	MovieRpc         movieclient.Movies //问答抽奖
 	Cache            cache.Cache
 	RedisConn        *redis.Redis
 }

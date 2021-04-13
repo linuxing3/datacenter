@@ -129,24 +129,51 @@ goctl rpc proto -src greet.proto -dir .
 
 ## New API
 
-greet.api
+movies.api
 
 ```
-info
-type greetReq {
-	String Name
+//请求电影信息
+type MovieReq {
+	Id string `json:"id"` //基本一个手机号码就完事
 }
-type greetRsp {
-	String Name
+
+//返回电影信息
+type MovieReply {
+	Id          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Url         string `json:"url"`
 }
-service {
-	handler getName(greetReq) (greetRsp)
+
+@server(
+	group: movie
+)
+service movie-api {
+	@handler ping
+	post /movies/ping ()
+	
+	@handler search
+	post /movies/search (MovieReq) returns (MovieReply)
+	
+}
+
+@server(
+	group: movie
+	middleware: Usercheck
+)
+service movie-api {
+	@handler movieInfo
+	get /movies/info (MovieReq) returns (MovieReply)
 }
 ```
 
 
 ```bash
-go api new greet
-go run greet.go -f etc/greet-api.yaml
-go java -api greet.api -dir .
+goctl api new movies
+
+goctl api go -api movies.api -dir movies/api
+
+goctl model mysql ddl -src movie.sql -dir movies/model
+
+go run movies/api/movie.go -f movies/api/etc/movie-api.yaml
 ```
