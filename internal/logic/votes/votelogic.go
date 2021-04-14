@@ -28,6 +28,7 @@ func NewVoteLogic(ctx context.Context, svcCtx *svc.ServiceContext) VoteLogic {
 }
 
 func (l *VoteLogic) Vote(req types.VoteReq) (*votesclient.VotesResp, error) {
+	// FIXED 这里获取ctx中存储的path和Header中参数
 	auid, _ := json.Number(fmt.Sprintf("%v", l.ctx.Value("auid"))).Int64()
 	uid, _ := json.Number(fmt.Sprintf("%v", l.ctx.Value("uid"))).Int64()
 	ptyid, _ := json.Number(fmt.Sprintf("%v", l.ctx.Value("ptyid"))).Int64()

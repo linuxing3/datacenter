@@ -37,6 +37,7 @@ func (l *LoginLogic) Login(req types.LoginReq, beid, ptyid int64) (*types.UserRe
 	if err != nil {
 		return nil, err
 	}
+	// jwt申请
 	jwttoken, err := l.datacenterLogic.GetJwtToken(types.AppUser{Uid: reply.Uid, Ptyid: ptyid, Beid: beid})
 	if err != nil {
 		return nil, err

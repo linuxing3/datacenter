@@ -16,5 +16,6 @@ type Config struct {
 		AccessSecret string
 		AccessExpire int64
 	}
+	// TODO: 如果需要调用Rpc，可以在这里添加
 }
 
