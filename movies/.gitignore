@@ -1,3 +1,4 @@
 rpc/etc/rpc.yaml
 rpc/nohup.out
-rpc/user-server
+rpc/movie-server
+
