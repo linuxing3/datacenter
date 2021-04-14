@@ -27,14 +27,13 @@ func NewMovieInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) MovieInf
 }
 
 func (l *MovieInfoLogic) MovieInfo(req types.MovieReq) (*movieclient.MovieListResp, error) {
-	// TODO: 调用rpc的movieclient，像rpc服务器发送请求
+	// FIXED: 调用后端MoviesRpc服务器，发送请求
+	// 检查 movies/rpc/internal/logic/movieslogic.go
 	id:= fmt.Sprintf("%s", req.Id)
-	log.Printf("%v", id);
+	log.Printf("从请求中获取id： %v", id);
+
 	ids := []string{id}
 	return l.svcCtx.MoviesRpc.Movies(l.ctx, &movieclient.MovieListReq{
 		Ids: ids,
 	})
-	// return &types.MovieReply{
-	// 	Title: "movies",
-	// }, nil
 }
