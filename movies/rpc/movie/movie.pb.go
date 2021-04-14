@@ -375,8 +375,8 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MoviesClient interface {
-	Movies(ctx context.Context, in *MovieReq, opts ...grpc.CallOption) (*MovieListResp, error)
-	Movie(ctx context.Context, in *MovieListReq, opts ...grpc.CallOption) (*MovieResp, error)
+	Movies(ctx context.Context, in *MovieListReq, opts ...grpc.CallOption) (*MovieListResp, error)
+	Movie(ctx context.Context, in *MovieReq, opts ...grpc.CallOption) (*MovieResp, error)
 }
 
 type moviesClient struct {
@@ -387,7 +387,7 @@ func NewMoviesClient(cc grpc.ClientConnInterface) MoviesClient {
 	return &moviesClient{cc}
 }
 
-func (c *moviesClient) Movies(ctx context.Context, in *MovieReq, opts ...grpc.CallOption) (*MovieListResp, error) {
+func (c *moviesClient) Movies(ctx context.Context, in *MovieListReq, opts ...grpc.CallOption) (*MovieListResp, error) {
 	out := new(MovieListResp)
 	err := c.cc.Invoke(ctx, "/movies.Movies/Movies", in, out, opts...)
 	if err != nil {
@@ -396,7 +396,7 @@ func (c *moviesClient) Movies(ctx context.Context, in *MovieReq, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *moviesClient) Movie(ctx context.Context, in *MovieListReq, opts ...grpc.CallOption) (*MovieResp, error) {
+func (c *moviesClient) Movie(ctx context.Context, in *MovieReq, opts ...grpc.CallOption) (*MovieResp, error) {
 	out := new(MovieResp)
 	err := c.cc.Invoke(ctx, "/movies.Movies/Movie", in, out, opts...)
 	if err != nil {

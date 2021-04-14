@@ -20,8 +20,8 @@ type (
 	MovieListResp = movie.MovieListResp
 
 	Movies interface {
-		Movies(ctx context.Context, in *MovieReq) (*MovieListResp, error)
-		Movie(ctx context.Context, in *MovieListReq) (*MovieResp, error)
+		Movies(ctx context.Context, in *MovieListReq) (*MovieListResp, error)
+		Movie(ctx context.Context, in *MovieReq) (*MovieResp, error)
 	}
 
 	defaultMovies struct {
@@ -35,12 +35,12 @@ func NewMovies(cli zrpc.Client) Movies {
 	}
 }
 
-func (m *defaultMovies) Movies(ctx context.Context, in *MovieReq) (*MovieListResp, error) {
+func (m *defaultMovies) Movies(ctx context.Context, in *MovieListReq) (*MovieListResp, error) {
 	client := movie.NewMoviesClient(m.cli.Conn())
 	return client.Movies(ctx, in)
 }
 
-func (m *defaultMovies) Movie(ctx context.Context, in *MovieListReq) (*MovieResp, error) {
+func (m *defaultMovies) Movie(ctx context.Context, in *MovieReq) (*MovieResp, error) {
 	client := movie.NewMoviesClient(m.cli.Conn())
 	return client.Movie(ctx, in)
 }

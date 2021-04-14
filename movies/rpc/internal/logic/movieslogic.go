@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"log"
 
 	"datacenter/movies/rpc/internal/svc"
 	"datacenter/movies/rpc/movie"
@@ -27,6 +28,9 @@ func NewMoviesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MoviesLogi
 func (l *MoviesLogic) Movies(in *movie.MovieListReq) (*movie.MovieListResp, error) {
 	// todo: add your logic here and delete this line
 	movieInt := shared.StrToInt64(in.Ids[0])
+
+	log.Printf("%v", movieInt)
+
 	movieInfo, _ := l.svcCtx.MoviesModel.FindOne(movieInt)
 	list := make([]*movie.MovieResp, 0)
 	list = append(list, &movie.MovieResp{
