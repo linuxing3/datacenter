@@ -23,7 +23,7 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Middleware{serverCtx.Usercheck},
 			[]rest.Route{
 				{
-					Method:  http.MethodGet,
+					Method:  http.MethodPost,
 					Path:    "/movies/info",
 					Handler: movie.MovieInfoHandler(serverCtx),
 				},

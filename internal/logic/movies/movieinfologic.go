@@ -2,10 +2,12 @@ package logic
 
 import (
 	"context"
+	"fmt"
 
 	"datacenter/internal/svc"
 	"datacenter/internal/types"
-
+	// FIXED: 调用rpcclient
+	"datacenter/movies/rpc/movieclient"
 	"github.com/tal-tech/go-zero/core/logx"
 )
 
@@ -23,8 +25,13 @@ func NewMovieInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) MovieInf
 	}
 }
 
-func (l *MovieInfoLogic) MovieInfo(req types.MovieReq) (*types.MovieReply, error) {
-	// todo: add your logic here and delete this line
-
-	return &types.MovieReply{}, nil
+func (l *MovieInfoLogic) MovieInfo(req types.MovieReq) (*movieclient.MovieListResp, error) {
+	// TODO: 调用rpc的movieclient，像rpc服务器发送请求
+	id:= fmt.Sprintf("%v", l.ctx.Value("id"))
+	return l.svcCtx.MoviesRpc.Movies(l.ctx, &movieclient.MovieReq{
+		Id: id,
+	})
+	// return &types.MovieReply{
+	// 	Title: "movies",
+	// }, nil
 }

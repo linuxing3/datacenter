@@ -25,6 +25,12 @@ func NewMoviesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MoviesLogi
 
 func (l *MoviesLogic) Movies(in *movie.MovieReq) (*movie.MovieListResp, error) {
 	// todo: add your logic here and delete this line
-
+	// movieInfo, err := l.svcCtx.MovieModel.FindOne(in.id)
+	// return &types.MovieReply{
+	// 	Id: movieInfo.Id,
+	// 	Title: movieInfo.Title,
+	// 	Description: movieInfo.Description,
+	// 	Url: movieInfo.Url,
+	// }, nil
 	return &movie.MovieListResp{}, nil
 }

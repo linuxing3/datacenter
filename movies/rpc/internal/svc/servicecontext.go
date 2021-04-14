@@ -8,8 +8,8 @@ import (
 )
 type ServiceContext struct {
 	Config config.Config
-	MoviesModel	model.MoviesModel
-	RedisConn             *redis.Redis
+	MoviesModel		model.MoviesModel
+	RedisConn     *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -21,6 +21,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
 		MoviesModel: mm,
-		RedisConn:             rconn,
+		RedisConn: rconn,
 	}
 }

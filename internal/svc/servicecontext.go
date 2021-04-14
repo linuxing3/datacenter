@@ -37,7 +37,6 @@ type ServiceContext struct {
 	MoviesRpc        movieclient.Movies         //FIXED: movies
 	SearchRpc        searchclient.Search       //搜索
 	QuestionsRpc     questionsclient.Questions //问答抽奖
-	MovieRpc         movieclient.Movies //问答抽奖
 	Cache            cache.Cache
 	RedisConn        *redis.Redis
 }
