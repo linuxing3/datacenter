@@ -5,6 +5,7 @@ import (
 
 	"datacenter/movies/rpc/internal/svc"
 	"datacenter/movies/rpc/movie"
+	"datacenter/shared"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )
@@ -23,14 +24,18 @@ func NewMoviesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MoviesLogi
 	}
 }
 
-func (l *MoviesLogic) Movies(in *movie.MovieReq) (*movie.MovieListResp, error) {
+func (l *MoviesLogic) Movies(in *movie.MovieListReq) (*movie.MovieListResp, error) {
 	// todo: add your logic here and delete this line
-	// movieInfo, err := l.svcCtx.MovieModel.FindOne(in.id)
-	// return &types.MovieReply{
-	// 	Id: movieInfo.Id,
-	// 	Title: movieInfo.Title,
-	// 	Description: movieInfo.Description,
-	// 	Url: movieInfo.Url,
-	// }, nil
-	return &movie.MovieListResp{}, nil
+	movieInt := shared.StrToInt64(in.Ids[0])
+	movieInfo, _ := l.svcCtx.MoviesModel.FindOne(movieInt)
+	list := make([]*movie.MovieResp, 0)
+	list = append(list, &movie.MovieResp{
+		Title: movieInfo.Title,
+		Description: movieInfo.Description,
+		Url: movieInfo.Url,
+	})
+	return &movie.MovieListResp{
+		Data: list,
+	}, nil
+	// return &movie.MovieListResp{}, nil
 }

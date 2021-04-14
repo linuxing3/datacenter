@@ -21,12 +21,12 @@ func NewMoviesServer(svcCtx *svc.ServiceContext) *MoviesServer {
 	}
 }
 
-func (s *MoviesServer) Movies(ctx context.Context, in *movie.MovieReq) (*movie.MovieListResp, error) {
+func (s *MoviesServer) Movies(ctx context.Context, in *movie.MovieListReq) (*movie.MovieListResp, error) {
 	l := logic.NewMoviesLogic(ctx, s.svcCtx)
 	return l.Movies(in)
 }
 
-func (s *MoviesServer) Movie(ctx context.Context, in *movie.MovieListReq) (*movie.MovieResp, error) {
+func (s *MoviesServer) Movie(ctx context.Context, in *movie.MovieReq) (*movie.MovieResp, error) {
 	l := logic.NewMovieLogic(ctx, s.svcCtx)
 	return l.Movie(in)
 }

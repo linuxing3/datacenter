@@ -24,12 +24,11 @@ func NewMovieLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MovieLogic 
 	}
 }
 
-func (l *MovieLogic) Movie(in *movie.MovieListReq) (*movie.MovieResp, error) {
+func (l *MovieLogic) Movie(in *movie.MovieReq) (*movie.MovieResp, error) {
 	// todo: add your logic here and delete this line
-	movieInt := shared.StrToInt64(in.Ids[0])
+	movieInt := shared.StrToInt64(in.Id)
 	movieInfo, _ := l.svcCtx.MoviesModel.FindOne(movieInt)
 	return &movie.MovieResp{
-		// Id: movieInfo.Id,
 		Title: movieInfo.Title,
 		Description: movieInfo.Description,
 		Url: movieInfo.Url,

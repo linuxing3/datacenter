@@ -22,6 +22,6 @@ message MovieListResp {
 }
 
 service Movies {
-  rpc Movies(MovieReq) returns(MovieListResp);
-  rpc Movie(MovieListReq) returns(MovieResp);
+  rpc Movies(MovieListReq) returns(MovieListResp);
+  rpc Movie(MovieReq) returns(MovieResp);
 }

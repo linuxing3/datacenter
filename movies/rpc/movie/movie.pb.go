@@ -407,8 +407,8 @@ func (c *moviesClient) Movie(ctx context.Context, in *MovieListReq, opts ...grpc
 
 // MoviesServer is the server API for Movies service.
 type MoviesServer interface {
-	Movies(context.Context, *MovieReq) (*MovieListResp, error)
-	Movie(context.Context, *MovieListReq) (*MovieResp, error)
+	Movies(context.Context, *MovieListReq) (*MovieListResp, error)
+	Movie(context.Context, *MovieReq) (*MovieResp, error)
 }
 
 // UnimplementedMoviesServer can be embedded to have forward compatible implementations.
@@ -427,7 +427,7 @@ func RegisterMoviesServer(s *grpc.Server, srv MoviesServer) {
 }
 
 func _Movies_Movies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MovieReq)
+	in := new(MovieListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -439,13 +439,13 @@ func _Movies_Movies_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/movies.Movies/Movies",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MoviesServer).Movies(ctx, req.(*MovieReq))
+		return srv.(MoviesServer).Movies(ctx, req.(*MovieListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Movies_Movie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MovieListReq)
+	in := new(MovieReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -457,7 +457,7 @@ func _Movies_Movie_Handler(srv interface{}, ctx context.Context, dec func(interf
 		FullMethod: "/movies.Movies/Movie",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MoviesServer).Movie(ctx, req.(*MovieListReq))
+		return srv.(MoviesServer).Movie(ctx, req.(*MovieReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
