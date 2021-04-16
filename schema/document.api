@@ -1,0 +1,46 @@
+info(
+  title: documents
+  desc: all documents 
+  author: linuxing3
+  email: linuxing3@qq.com
+  version: 1.0
+)
+
+type DocumentReq struct {
+  Id int64 `json: "id"`
+  Title string `json: "title"`
+  Author string `json: "author"`
+  Description string `json: "description"`
+  Content string `json: "content"`
+  PublishedDate string `json: "publishedDate"`
+}
+
+type DocumentResp struct {
+  Id int64 `json: "id"` 
+  Title string `json: "title"` 
+  Author string `json: "author"` 
+  Description string `json: "description"` 
+  Content string `json: "content"` 
+  PublishedDate string `json: "publishedDate"` 
+}
+
+@server(
+	group: document
+  jwt: Auth
+	middleware: Usercheck
+)
+service document-api {
+  @doc(
+    summary: get documents
+  )
+  @handler getDocuments
+  get /documents(DocumentReq) returns(DocumentResp)
+
+  @doc(
+    summary: new document
+  )
+  @handler newDocument
+  post /documents(DocumentReq) returns(DocumentReq)    
+  
+}
+

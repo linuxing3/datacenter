@@ -11,6 +11,7 @@ import (
 	votes "datacenter/internal/handler/votes"
 	// TODO: add movie handler
 	movie "datacenter/internal/handler/movies"
+	bookstore "datacenter/internal/handler/bookstore"
 	"datacenter/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
@@ -18,6 +19,20 @@ import (
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	// TODO: Add movie api routes
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/bookstore/add",
+				Handler: bookstore.AddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/bookstore/check",
+				Handler: bookstore.CheckHandler(serverCtx),
+			},
+		},
+	)
 	engine.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Usercheck},

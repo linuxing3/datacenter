@@ -20,6 +20,8 @@ type Config struct {
 	QuestionsRpc zrpc.RpcClientConf
 	// FIXED: add movie rpc
 	MoviesRpc 	 zrpc.RpcClientConf
+	AdderRpc 	 zrpc.RpcClientConf
+	CheckerRpc 	 zrpc.RpcClientConf
 
 	CacheRedis cache.ClusterConf
 }

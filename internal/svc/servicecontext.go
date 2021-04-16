@@ -9,7 +9,10 @@ import (
 	"datacenter/search/rpc/searchclient"
 	"datacenter/shared"
 	"datacenter/user/rpc/userclient"
+
 	// FIXED: 调用rpcclient
+	adder "datacenter/bookstore/rpc/adder/adderclient"
+	checker "datacenter/bookstore/rpc/checker/checkerclient"
 	"datacenter/movies/rpc/movieclient"
 	"datacenter/votes/rpc/votesclient"
 	"fmt"
@@ -37,6 +40,8 @@ type ServiceContext struct {
 	MoviesRpc        movieclient.Movies         //FIXED: movies
 	SearchRpc        searchclient.Search       //搜索
 	QuestionsRpc     questionsclient.Questions //问答抽奖
+	AdderRpc         adder.Adder
+	CheckerRpc       checker.Checker
 	Cache            cache.Cache
 	RedisConn        *redis.Redis
 }
@@ -54,6 +59,9 @@ func timeInterceptor(ctx context.Context, method string, req, reply interface{},
 func NewServiceContext(c config.Config) *ServiceContext {
 	// FIXED: add new zrpcclient to context
 	mr := movieclient.NewMovies(zrpc.MustNewClient(c.MoviesRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+  adder := adder.NewAdder(zrpc.MustNewClient(c.AdderRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+  checker := checker.NewChecker(zrpc.MustNewClient(c.CheckerRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	// 
 	ur := userclient.NewUser(zrpc.MustNewClient(c.UserRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	cr := commonclient.NewCommon(zrpc.MustNewClient(c.CommonRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	vr := votesclient.NewVotes(zrpc.MustNewClient(c.VotesRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
@@ -74,6 +82,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		MoviesRpc:        mr,
 		SearchRpc:        sr,
 		QuestionsRpc:     qr,
+		AdderRpc:         adder,
+		CheckerRpc:       checker,
 		Cache:            ca,
 		RedisConn:        rcon,
 	}

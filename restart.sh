@@ -10,6 +10,9 @@ votesPath=$(pwd)/votes/rpc #投票服务
 # TODO: movies rpc path
 moviePath=$(pwd)/movies/rpc #movie服务
 
+bookAddPath=$(pwd)/bookstore/rpc/adder #adder服务
+bookCheckPath=$(pwd)/bookstore/rpc/checker #checker服务
+
 configPath=/etc/rpc.yaml #配置文件
 geteWayCnf=/etc/datacenter-api.yaml
 
@@ -18,6 +21,9 @@ CommonRpc=common-server #定义公共服务
 VotesRpc=votes-server #定义投票服务
 # TODO: movies rpcserver
 MovieRpc=movie-server #定义movie服务
+
+BookAdderRpc=bookadder-server #定义adder服务
+BookCheckerRpc=bookchecker-server #定义checker服务
 
 geteWayApi=datacenter-server #定义网关服务
 
@@ -61,6 +67,9 @@ RpcServer ${userPath} ${UserRpc} ${configPath}
 RpcServer ${votesPath} ${VotesRpc} ${configPath}
 # 电影服务
 RpcServer ${moviePath} ${MovieRpc} ${configPath}
+
+RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
+RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
 
 # 启动附加服务
 #搜索服务
