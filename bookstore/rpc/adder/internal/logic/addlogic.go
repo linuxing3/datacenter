@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"log"
 
 	"datacenter/bookstore/model"
 
@@ -27,7 +28,7 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddLogic {
 
 func (l *AddLogic) Add(in *add.AddReq) (*add.AddResp, error) {
 	// todo: add your logic here and delete this line
-
+	log.Printf("in object : %v",in)
 	_, err := l.svcCtx.BookModel.Insert(model.Book{
 		Book: in.Book,
 		Price: in.Price,

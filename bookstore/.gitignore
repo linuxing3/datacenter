@@ -1,0 +1,8 @@
+rpc/adder/etc/adder.yaml
+rpc/checker/etc/checker.yaml
+
+rpc/adder/nohup.out
+rpc/checker/nohup.out
+
+rpc/adder/bookadder-server
+rpc/checker/bookchecker-server

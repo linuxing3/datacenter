@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"log"
 
 	adder "datacenter/bookstore/rpc/adder/adderclient"
 	"datacenter/internal/svc"
@@ -26,6 +27,7 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddLogic {
 
 func (l *AddLogic) Add(req types.AddReq) (*types.AddResp, error) {
 	// t: add your logic here and delete this line
+	log.Printf("in object : %v",req)
 	resp, err := l.svcCtx.AdderRpc.Add(l.ctx, &adder.AddReq{
 		Book: req.Book,
 		Price: req.Price,
