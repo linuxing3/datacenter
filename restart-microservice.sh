@@ -77,6 +77,10 @@ StartServer(){
     nohup ${mydir}/${myserver} -f ${mydir}${mycnf} &
 }
 
+Logging() {
+    tail -F $1/rpc/nohup.out
+}
+
 function start_menu() {
     clear
     green " ===================================="
@@ -92,37 +96,51 @@ function start_menu() {
     green " 6. 搜索服务"
     green " 7. 问答抽奖服务"
     green " 8. 网关入口"
-    green " 9. 启动全部服务"
+    green " 9. prometheus"
+    green " 10. 启动全部服务"
     yellow " 0. Exit"
     echo
     read -p "输入数字:" num
     case "$num" in
     1)
         RpcServer ${commonPath} ${CommonRpc} ${configPath}
+        # Logging common
         ;;
     2)
         RpcServer ${userPath} ${UserRpc} ${configPath}
+        # Logging user
         ;;
     3)
         RpcServer ${votesPath} ${VotesRpc} ${configPath}
+        # Logging votes
         ;;
     4)
         RpcServer ${moviePath} ${MovieRpc} ${configPath}
+        # sleep 5s
+        # Logging movies
         ;;
     5)
         RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
         RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
+        # tail -F bookstore/rpc/adder/nohup.out
+        # tail -F bookstore/rpc/checker/nohup.out
         ;;
     6)
         RpcServerPlus ${getewayPath} search
+        # Logging search
         ;;
     7)
         RpcServerPlus ${getewayPath} questions
+        # Logging questions
         ;;
     8)
         StartServer ${getewayPath} ${geteWayApi} ${gateWayCnf}
+        # tail -F nohup.out
         ;;
     9)
+        /usr/local/Prometheus/prometheus --config.file=config/prometheus/config.yml
+        ;;
+    10)
         RpcServer ${commonPath} ${CommonRpc} ${configPath}
         RpcServer ${userPath} ${UserRpc} ${configPath}
         RpcServer ${votesPath} ${VotesRpc} ${configPath}

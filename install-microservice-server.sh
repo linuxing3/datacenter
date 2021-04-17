@@ -69,6 +69,11 @@ start_es() {
     spencezhou/elasticsearch
 }
 
+install_prometheus() {
+    wget https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz
+    tar -C /usr/local/ -xvf prometheus-2.26.0.linux-amd64.tar.gz
+    ln -sv /usr/local/prometheus-2.26.0.linux-amd64/ /usr/local/Prometheus
+}
 
 function start_menu() {
     clear
@@ -81,7 +86,8 @@ function start_menu() {
     green " 2. redis"
     green " 3. etcd"
     green " 4. elasticsearch"
-    green " 5. all"
+    green " 5. prometheus"
+    green " 6. all"
     yellow " 0. Exit"
     echo
     read -p "输入数字:" num
@@ -103,6 +109,9 @@ function start_menu() {
         start_redis
         star_etcd
         start_es
+        ;;
+    6)
+        install_prometheus
         ;;
     0)
         exit 1
