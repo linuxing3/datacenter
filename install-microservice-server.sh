@@ -75,6 +75,12 @@ install_prometheus() {
     ln -sv /usr/local/prometheus-2.26.0.linux-amd64/ /usr/local/Prometheus
 }
 
+install_grafana() {
+    sudo apt-get install -y adduser libfontconfig1
+    wget https://dl.grafana.com/oss/release/grafana_7.5.4_amd64.deb
+    sudo dpkg -i grafana_7.5.4_amd64.deb
+}
+
 function start_menu() {
     clear
     green " ===================================="
@@ -87,7 +93,8 @@ function start_menu() {
     green " 3. etcd"
     green " 4. elasticsearch"
     green " 5. prometheus"
-    green " 6. all"
+    green " 6. grafana"
+    green " 7. all"
     yellow " 0. Exit"
     echo
     read -p "输入数字:" num
@@ -112,6 +119,9 @@ function start_menu() {
         ;;
     6)
         install_prometheus
+        ;;
+    7)
+        install_grafana
         ;;
     0)
         exit 1

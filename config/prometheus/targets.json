@@ -1,11 +1,11 @@
 [
   {
-      "targets": ["127.0.0.1:9091"],
+      "targets": ["127.0.0.1:8088"],
       "labels": {
-          "job": "datacenter-api",
-          "app": "datacenter-api",
+          "job": "movie-api",
+          "app": "movie-api",
           "env": "test",
-          "instance": "127.0.0.1:9000"
+          "instance": "127.0.0.1:8887"
       }
   }
 ]

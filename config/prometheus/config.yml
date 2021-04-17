@@ -6,6 +6,12 @@ rule_files:
   # - "first.rules"
   # - "second.rules"
 
+remote_write:
+- url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+  basic_auth:
+    username: 84143
+    password: eyJrIjoiYjZhNGExNjdlZjQ3ZjZiNzViZjU0MDExNWE2YTkwYWU3OGI1MjJmYyIsIm4iOiJkYXRhY2VudGVyIiwiaWQiOjQ4NDI3M30=
+
 scrape_configs:
   - job_name: prometheus
     static_configs:
