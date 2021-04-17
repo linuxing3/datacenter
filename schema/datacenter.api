@@ -1,8 +1,8 @@
 info(
 	title: "中台系统"// TODO: add title
 	desc: "中台系统"// TODO: add description
-	author: "jackluo"
-	email: "net.webjoy@gmail.com"
+	author: "linuxing3"
+	email: "linuxing3@qq.com"
 )
 
 import "user.api"

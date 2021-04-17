@@ -1,8 +1,8 @@
 info(
 	title: "user api"// TODO: add title
 	desc: "用户系统"// TODO: add description
-	author: "jackluo"
-	email: "net.webjoy@gmail.com"
+	author: "linuxing3"
+	email: "linuxing3@qq.com"
 )
 //注册请求
 type RegisterReq struct {

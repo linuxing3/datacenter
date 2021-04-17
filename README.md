@@ -307,7 +307,7 @@ service Movies {
 
 + [Go-zero](https://zeromicro.github.io/go-zero/about-us.html)
 
-+ [我是如何用go-zero 实现一个中台系统](https://www.cnblogs.com/jackluo/p/14148518.html)
++ [我是如何用go-zero 实现一个中台系统](https://www.cnblogs.com/linuxing3/p/14148518.html)
 
 + [开源地址](https://github.com/jackluo2012/datacenter)
 

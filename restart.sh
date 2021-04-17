@@ -1,33 +1,50 @@
 #!/bin/bash
-## author by jackluo
-## Email net.webjoy@gmail.com
-## wechat 13228191831
+## author by linuxing3
+## Email linuxing3@qq.com
+## wechat linuxing3
 
+
+blue() {
+    echo -e "\033[34m\033[01m$1\033[0m"
+}
+green() {
+    echo -e "\033[32m\033[01m$1\033[0m"
+}
+red() {
+    echo -e "\033[31m\033[01m$1\033[0m"
+}
+yellow() {
+    echo -e "\033[33m\033[01m$1\033[0m"
+}
+
+logcmd() {
+    eval $1 | tee -ai /var/atrandys.log
+}
+
+
+# 设置服务的目录
 getewayPath=$(pwd) #网关服务
 userPath=$(pwd)/user/rpc #用户服务
 commonPath=$(pwd)/common/rpc #公共服务
 votesPath=$(pwd)/votes/rpc #投票服务
-# TODO: movies rpc path
 moviePath=$(pwd)/movies/rpc #movie服务
-
 bookAddPath=$(pwd)/bookstore/rpc/adder #adder服务
 bookCheckPath=$(pwd)/bookstore/rpc/checker #checker服务
 
+# 基本配置文件名
 configPath=/etc/rpc.yaml #配置文件
-geteWayCnf=/etc/datacenter-api.yaml
+gateWayCnf=/etc/datacenter-api.yaml
 
+# 设置服务可执行文件名称
 UserRpc=user-server #定义网关服务
 CommonRpc=common-server #定义公共服务
 VotesRpc=votes-server #定义投票服务
-# TODO: movies rpcserver
 MovieRpc=movie-server #定义movie服务
-
 BookAdderRpc=bookadder-server #定义adder服务
 BookCheckerRpc=bookchecker-server #定义checker服务
-
 geteWayApi=datacenter-server #定义网关服务
 
-
+# 普通Rpc服务启动函数
 RpcServer(){
     mydir=$1
     myserver=$2
@@ -38,6 +55,7 @@ RpcServer(){
     nohup ${mydir}/${myserver} -f ${mydir}${mycnf} &
 }
 
+# 附加Rpc服务启动函数
 RpcServerPlus(){
     mydir=$1/$2/rpc
     myserver=${2}-server
@@ -48,6 +66,7 @@ RpcServerPlus(){
     nohup ${mydir}/${myserver} -f ${mydir}${mycnf} &
 }
 
+# 启动Api服务
 StartServer(){
     mydir=$1
     myserver=$2
@@ -58,27 +77,72 @@ StartServer(){
     nohup ${mydir}/${myserver} -f ${mydir}${mycnf} &
 }
 
-# 启动普通服务
-#公共服务
-RpcServer ${commonPath} ${CommonRpc} ${configPath}
-#用户服务
-RpcServer ${userPath} ${UserRpc} ${configPath}
-#投票服务
-RpcServer ${votesPath} ${VotesRpc} ${configPath}
-# 电影服务
-RpcServer ${moviePath} ${MovieRpc} ${configPath}
+function start_menu() {
+    clear
+    green " ===================================="
+    green " Datacenter 微服务 操控中心"
+    green " 系统：debian10+gozero"
+    green " ===================================="
+    echo
+    green " 1. 公共服务"
+    green " 2. 用户服务"
+    green " 3. 投票服务"
+    green " 4. 电影服务"
+    green " 5. 书籍服务"
+    green " 6. 搜索服务"
+    green " 7. 问答抽奖服务"
+    green " 8. 网关入口"
+    green " 9. 启动全部服务"
+    yellow " 0. Exit"
+    echo
+    read -p "输入数字:" num
+    case "$num" in
+    1)
+        RpcServer ${commonPath} ${CommonRpc} ${configPath}
+        ;;
+    2)
+        RpcServer ${userPath} ${UserRpc} ${configPath}
+        ;;
+    3)
+        RpcServer ${votesPath} ${VotesRpc} ${configPath}
+        ;;
+    4)
+        RpcServer ${moviePath} ${MovieRpc} ${configPath}
+        ;;
+    5)
+        RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
+        RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
+        ;;
+    6)
+        RpcServerPlus ${getewayPath} search
+        ;;
+    7)
+        RpcServerPlus ${getewayPath} questions
+        ;;
+    8)
+        StartServer ${getewayPath} ${geteWayApi} ${gateWayCnf}
+        ;;
+    9)
+        RpcServer ${commonPath} ${CommonRpc} ${configPath}
+        RpcServer ${userPath} ${UserRpc} ${configPath}
+        RpcServer ${votesPath} ${VotesRpc} ${configPath}
+        RpcServer ${moviePath} ${MovieRpc} ${configPath}
+        RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
+        RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
+        RpcServerPlus ${getewayPath} search
+        RpcServerPlus ${getewayPath} questions
+        StartServer ${getewayPath} ${geteWayApi} ${geteWayCnf}
+        ;;
+    0)
+        exit 1
+        ;;
+    *)
+        clear
+        red "请输入正确选项"
+        sleep 2s
+        start_menu
+        ;;
+    esac
+}
 
-RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
-RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
-
-# 启动附加服务
-#搜索服务
-RpcServerPlus ${getewayPath} search
-#问答抽奖服务
-RpcServerPlus ${getewayPath} questions
-
-# 启动data-center网关总的接口
-#Api服务
-StartServer ${getewayPath} ${geteWayApi} ${geteWayCnf}
-
-
+start_menu

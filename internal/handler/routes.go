@@ -18,7 +18,6 @@ import (
 )
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
-	// TODO: Add movie api routes
 	engine.AddRoutes(
 		[]rest.Route{
 			{
