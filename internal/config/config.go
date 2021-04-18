@@ -22,6 +22,7 @@ type Config struct {
 	MoviesRpc 	 zrpc.RpcClientConf
 	AdderRpc 	 zrpc.RpcClientConf
 	CheckerRpc 	 zrpc.RpcClientConf
+	OmsRpc 	 zrpc.RpcClientConf
 
 	CacheRedis cache.ClusterConf
 }

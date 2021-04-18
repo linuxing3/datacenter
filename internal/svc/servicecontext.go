@@ -13,6 +13,9 @@ import (
 	// FIXED: 调用rpcclient
 	adder "datacenter/bookstore/rpc/adder/adderclient"
 	checker "datacenter/bookstore/rpc/checker/checkerclient"
+
+	omsclient "go-zero-admin/rpc/oms/omsclient"
+
 	"datacenter/movies/rpc/movieclient"
 	"datacenter/votes/rpc/votesclient"
 	"fmt"
@@ -42,6 +45,7 @@ type ServiceContext struct {
 	QuestionsRpc     questionsclient.Questions //问答抽奖
 	AdderRpc         adder.Adder
 	CheckerRpc       checker.Checker
+	OmsRpc           omsclient.Oms  //
 	Cache            cache.Cache
 	RedisConn        *redis.Redis
 }
@@ -61,6 +65,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	mr := movieclient.NewMovies(zrpc.MustNewClient(c.MoviesRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
   adder := adder.NewAdder(zrpc.MustNewClient(c.AdderRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
   checker := checker.NewChecker(zrpc.MustNewClient(c.CheckerRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	oms := omsclient.NewOms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	// 
 	ur := userclient.NewUser(zrpc.MustNewClient(c.UserRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	cr := commonclient.NewCommon(zrpc.MustNewClient(c.CommonRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
@@ -84,6 +89,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		QuestionsRpc:     qr,
 		AdderRpc:         adder,
 		CheckerRpc:       checker,
+		OmsRpc:           oms,
 		Cache:            ca,
 		RedisConn:        rcon,
 	}

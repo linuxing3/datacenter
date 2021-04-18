@@ -116,8 +116,7 @@ function start_menu() {
         ;;
     4)
         RpcServer ${moviePath} ${MovieRpc} ${configPath}
-        # sleep 5s
-        # Logging movies
+        go run $GOROOT/src/go-zero-admin/rpc/oms/oms.go -f $GOROOT/src/go-zero-admin/rpc/oms/etc/oms.yaml
         ;;
     5)
         RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
