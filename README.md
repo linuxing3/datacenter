@@ -49,6 +49,10 @@ PASSWORD elastic = somepassword
 
 填入`search/rpc/search.yaml` 配置文件中
 
+#### 踩坑
+
+注意添加`--privileged=true`，如果发现无法正常启动无权限则，运行 `chmod -R 777 [mydata]`
+
 ### 导入 sql.sql到 mysql数据中 
 
 + 直接登录到Docker中的数据库

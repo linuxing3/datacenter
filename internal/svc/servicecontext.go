@@ -72,9 +72,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
   adder := adder.NewAdder(zrpc.MustNewClient(c.AdderRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
   checker := checker.NewChecker(zrpc.MustNewClient(c.CheckerRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	oms := omsclient.NewOms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
-	pms := pmsclient.NewPms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
-	ums := umsclient.NewUms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
-	sms := smsclient.NewSms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	pms := pmsclient.NewPms(zrpc.MustNewClient(c.PmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	ums := umsclient.NewUms(zrpc.MustNewClient(c.UmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	sms := smsclient.NewSms(zrpc.MustNewClient(c.SmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	// 
 	ur := userclient.NewUser(zrpc.MustNewClient(c.UserRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	cr := commonclient.NewCommon(zrpc.MustNewClient(c.CommonRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))

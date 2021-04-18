@@ -77,7 +77,7 @@ start_es() {
     -p 9200:9200 -p 9300:9300 \
     -e "discovery.type=single-node" \
     -v /home/dev/elasticsearch:/usr/share/elasticsearch/data \
-    spencezhou/elasticsearch
+    spencezhou/elasticsearch:7.6.2
 }
 
 install_prometheus() {
