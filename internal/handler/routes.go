@@ -12,9 +12,6 @@ import (
 	// TODO: add movie handler
 	movie "datacenter/internal/handler/movies"
 	bookstore "datacenter/internal/handler/bookstore"
-	// TODO: add order handler
-	ordercart "datacenter/internal/handler/order/cart"
-	orderorder "datacenter/internal/handler/order/order"
 	"datacenter/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
@@ -22,55 +19,7 @@ import (
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 
-	engine.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/order/cart/add",
-				Handler: ordercart.CartItemAddHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/api/order/cart/list",
-				Handler: ordercart.CartItemListHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/order/cart/update",
-				Handler: ordercart.CartItemUpdateHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/order/cart/delete",
-				Handler: ordercart.CartItemDeleteHandler(serverCtx),
-			},
-		},
-	)
-
-	engine.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/order/order/add",
-				Handler: orderorder.OrderAddHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/api/order/order/list",
-				Handler: orderorder.OrderListHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/order/order/update",
-				Handler: orderorder.OrderUpdateHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/order/order/delete",
-				Handler: orderorder.OrderDeleteHandler(serverCtx),
-			},
-		},
-	)
+	RegisterGoZeroHandlers(engine, serverCtx)
 
 	engine.AddRoutes(
 		[]rest.Route{

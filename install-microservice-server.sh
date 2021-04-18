@@ -17,16 +17,21 @@ yellow() {
     echo -e "\033[33m\033[01m$1\033[0m"
 }
 
+start_adminer() {
+    docker kill datacenter_adminer
+    docker rm datacenter_adminer
+    docker run --name datacenter_adminer \
+        -p 9434:8080 \
+        --link mysql \
+        -e 'MYSQL_PASSWORD=admin' \
+        -d adminer 
+}
+
 ##### 启动mysql 服务
 start_mysql() {
   docker kill mysql
   docker rm mysql
-  docker run --name mysql \
-    -p 3306:3306 \
-    -e MYSQL_ROOT_PASSWORD=admin \ 
-    -v $(pwd):/app \ 
-    -v /home/dev/mysql8:/var/lib/mysql \ 
-    -d mysql:8.0.21
+  docker run --name mysql -d -p 3306:3306 -e 'MYSQL_ROOT_PASSWORD=admin' -v /home/dev/mysql8:/var/lib/mysql mysql:8.0.21
 }
 
 ##### 启动redis 服务
@@ -38,7 +43,6 @@ start_redis() {
     --publish 6379:6379 \
     --env 'REDIS_PASSWORD=admin' \
     --volume /home/dev/redis:/var/lib/redis \
-    -v $(pwd):/app \ 
     sameersbn/redis:latest
 }
 
@@ -51,7 +55,6 @@ start_etcd() {
     -p 2379:2379 \
     -p 2380:2380 \
     --mount type=bind,source=/home/dev/etcd,destination=/etcd-data \
-    -v $(pwd):/app \ 
     --name etcd \
     quay.io/coreos/etcd \
     /usr/local/bin/etcd \
@@ -73,7 +76,6 @@ start_es() {
   docker run -d --name es \
     -p 9200:9200 -p 9300:9300 \
     -e "discovery.type=single-node" \
-    -v $(pwd):/app \ 
     -v /home/dev/elasticsearch:/usr/share/elasticsearch/data \
     spencezhou/elasticsearch
 }
@@ -114,12 +116,13 @@ function start_menu() {
     case "$num" in
     1)
         start_mysql
+        start_adminer
         ;;
     2)
         start_redis
         ;;
     3)
-        star_etcd
+        start_etcd
         ;;
     4)
         start_es

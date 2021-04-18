@@ -78,7 +78,7 @@ type RegisterReq struct {
 	Smscode  string `json:"smscode"` //短信码
 }
 
-type LoginReq struct {
+type MobileLoginReq struct {
 	Mobile   string `json:"mobile"`
 	Type     int64  `json:"type"` //1.密码登陆，2.短信登陆
 	Password string `json:"password"`

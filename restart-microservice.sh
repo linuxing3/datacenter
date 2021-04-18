@@ -68,6 +68,19 @@ RpcServerPlus(){
     nohup ${mydir}/${myserver} -f ${mydir}${mycnf} &
 }
 
+# 附加Rpc服务启动函数
+RpcServerExtra(){
+    # go run $GOROOT/src/go-zero-admin/rpc/oms/oms.go -f $GOROOT/src/go-zero-admin/rpc/oms/etc/oms.yaml 
+    srcdir=$GOROOT/src/go-zero-admin/rpc/$1
+    exedir=$GOPATH/src/github.com/linuxing3/datacenter
+    myserver=${1}-server
+    mycnf=/${1}/rpc/etc/${1}.yaml
+    cd ${srcdir}
+    go build -o ${exedir}/${myserver} ${srcdir}/$1.go
+    kill -9 $(ps -ef|grep "${myserver}"|awk '{print $2}') >/dev/null 2>&1
+    nohup ${exedir}/${myserver} -f ${exedir}${mycnf} &
+}
+
 # 启动Api服务
 StartServer(){
     mydir=$1
@@ -92,6 +105,10 @@ StopAllServer(){
     kill -9 $(ps -ef|grep "${BookAdderRpc}"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "${BookCheckerRpc}"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "${GatewayApi}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "oms-server"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "pms-server"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "ums-server"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "sms-server"|awk '{print $2}') >/dev/null 2>&1
 }
 
 StartAllServer() {
@@ -143,7 +160,10 @@ function start_menu() {
         ;;
     4)
         RpcServer ${moviePath} ${MovieRpc} ${configPath}
-        go run $GOROOT/src/go-zero-admin/rpc/oms/oms.go -f $GOROOT/src/go-zero-admin/rpc/oms/etc/oms.yaml
+        RpcServerExtra oms
+        RpcServerExtra pms
+        RpcServerExtra ums
+        RpcServerExtra sms
         ;;
     5)
         RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}

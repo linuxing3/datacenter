@@ -15,6 +15,9 @@ import (
 	checker "datacenter/bookstore/rpc/checker/checkerclient"
 
 	omsclient "go-zero-admin/rpc/oms/omsclient"
+	pmsclient "go-zero-admin/rpc/pms/pmsclient"
+	smsclient "go-zero-admin/rpc/sms/smsclient"
+	umsclient "go-zero-admin/rpc/ums/umsclient"
 
 	"datacenter/movies/rpc/movieclient"
 	"datacenter/votes/rpc/votesclient"
@@ -46,6 +49,9 @@ type ServiceContext struct {
 	AdderRpc         adder.Adder
 	CheckerRpc       checker.Checker
 	OmsRpc           omsclient.Oms  //
+	PmsRpc           pmsclient.Pms  //
+	UmsRpc           umsclient.Ums  //
+	SmsRpc           smsclient.Sms  //
 	Cache            cache.Cache
 	RedisConn        *redis.Redis
 }
@@ -66,6 +72,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
   adder := adder.NewAdder(zrpc.MustNewClient(c.AdderRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
   checker := checker.NewChecker(zrpc.MustNewClient(c.CheckerRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	oms := omsclient.NewOms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	pms := pmsclient.NewPms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	ums := umsclient.NewUms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	sms := smsclient.NewSms(zrpc.MustNewClient(c.OmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	// 
 	ur := userclient.NewUser(zrpc.MustNewClient(c.UserRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	cr := commonclient.NewCommon(zrpc.MustNewClient(c.CommonRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
@@ -90,6 +99,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		AdderRpc:         adder,
 		CheckerRpc:       checker,
 		OmsRpc:           oms,
+		PmsRpc:           pms,
+		UmsRpc:           ums,
+		SmsRpc:           sms,
 		Cache:            ca,
 		RedisConn:        rcon,
 	}

@@ -1,5 +1,5 @@
 common/rpc/nohup.out
-datacenter-server
+*-server
 nohup.out
 .DS_Store
 datacenter-api.yaml
