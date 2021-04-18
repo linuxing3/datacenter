@@ -23,7 +23,7 @@ logcmd() {
 
 
 # 设置服务的目录
-getewayPath=$(pwd) #网关服务
+GatewayPath=$(pwd) #网关服务
 userPath=$(pwd)/user/rpc #用户服务
 commonPath=$(pwd)/common/rpc #公共服务
 votesPath=$(pwd)/votes/rpc #投票服务
@@ -33,7 +33,7 @@ bookCheckPath=$(pwd)/bookstore/rpc/checker #checker服务
 
 # 基本配置文件名
 configPath=/etc/rpc.yaml #配置文件
-gateWayCnf=/etc/datacenter-api.yaml
+GateWayCnf=/etc/datacenter-api.yaml
 
 # 设置服务可执行文件名称
 UserRpc=user-server #定义网关服务
@@ -74,11 +74,11 @@ RpcServerExtra(){
     srcdir=$GOROOT/src/go-zero-admin/rpc/$1
     exedir=$GOPATH/src/github.com/linuxing3/datacenter
     myserver=${1}-server
-    mycnf=/${1}/rpc/etc/${1}.yaml
+    mycnf=${1}/rpc/etc/${1}.yaml
     cd ${srcdir}
     go build -o ${exedir}/${myserver} ${srcdir}/$1.go
     kill -9 $(ps -ef|grep "${myserver}"|awk '{print $2}') >/dev/null 2>&1
-    nohup ${exedir}/${myserver} -f ${exedir}${mycnf} &
+    nohup ${exedir}/${myserver} -f ${exedir}/${mycnf} &
 }
 
 # 启动Api服务
@@ -104,7 +104,9 @@ StopAllServer(){
     kill -9 $(ps -ef|grep "${MovieRpc}"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "${BookAdderRpc}"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "${BookCheckerRpc}"|awk '{print $2}') >/dev/null 2>&1
+    
     kill -9 $(ps -ef|grep "${GatewayApi}"|awk '{print $2}') >/dev/null 2>&1
+
     kill -9 $(ps -ef|grep "oms-server"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "pms-server"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "ums-server"|awk '{print $2}') >/dev/null 2>&1
@@ -112,15 +114,23 @@ StopAllServer(){
 }
 
 StartAllServer() {
+    # StopAllServer
     RpcServer ${commonPath} ${CommonRpc} ${configPath}
     RpcServer ${userPath} ${UserRpc} ${configPath}
     RpcServer ${votesPath} ${VotesRpc} ${configPath}
     RpcServer ${moviePath} ${MovieRpc} ${configPath}
     RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
     RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
-    RpcServerPlus ${getewayPath} search
-    RpcServerPlus ${getewayPath} questions
-    StartServer ${getewayPath} ${GateWayApi} ${geteWayCnf}
+
+    RpcServerPlus ${GatewayPath} search
+    RpcServerPlus ${GatewayPath} questions
+
+    RpcServerExtra oms
+    RpcServerExtra pms
+    RpcServerExtra ums
+    RpcServerExtra sms
+
+    StartServer ${GatewayPath} ${GateWayApi} ${GateWayCnf}
 }
 
 
@@ -172,15 +182,15 @@ function start_menu() {
         # tail -F bookstore/rpc/checker/nohup.out
         ;;
     6)
-        RpcServerPlus ${getewayPath} search
+        RpcServerPlus ${GatewayPath} search
         # Logging search
         ;;
     7)
-        RpcServerPlus ${getewayPath} questions
+        RpcServerPlus ${GatewayPath} questions
         # Logging questions
         ;;
     8)
-        StartServer ${getewayPath} ${GateWayApi} ${gateWayCnf}
+        StartServer ${GatewayPath} ${GateWayApi} ${GateWayCnf}
         # tail -F nohup.out
         ;;
     9)

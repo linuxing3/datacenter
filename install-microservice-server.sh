@@ -128,16 +128,16 @@ function start_menu() {
         start_es
         ;;
     5)
+        install_prometheus
+        ;;
+    6)
+        install_grafana
+        ;;
+    7)
         start_mysql
         start_redis
         start_etcd
         start_es
-        ;;
-    6)
-        install_prometheus
-        ;;
-    7)
-        install_grafana
         ;;
     8)
         docker stop es

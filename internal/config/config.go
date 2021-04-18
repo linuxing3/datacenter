@@ -19,13 +19,13 @@ type Config struct {
 	SearchRpc    zrpc.RpcClientConf
 	QuestionsRpc zrpc.RpcClientConf
 	// FIXED: add movie rpc
-	MoviesRpc 	 zrpc.RpcClientConf
-	AdderRpc 	 zrpc.RpcClientConf
-	CheckerRpc 	 zrpc.RpcClientConf
-	OmsRpc 	 zrpc.RpcClientConf
-	PmsRpc 	 zrpc.RpcClientConf
-	UmsRpc 	 zrpc.RpcClientConf
-	SmsRpc 	 zrpc.RpcClientConf
+	MoviesRpc  zrpc.RpcClientConf
+	AdderRpc   zrpc.RpcClientConf
+	CheckerRpc zrpc.RpcClientConf
+	OmsRpc     zrpc.RpcClientConf
+	PmsRpc     zrpc.RpcClientConf
+	UmsRpc     zrpc.RpcClientConf
+	SmsRpc     zrpc.RpcClientConf
 
 	CacheRedis cache.ClusterConf
 }

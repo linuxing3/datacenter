@@ -27,7 +27,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginLogic {
 	}
 }
 
-func (l *LoginLogic) Login(req types.LoginReq, beid, ptyid int64) (*types.UserReply, error) {
+func (l *LoginLogic) Login(req types.MobileLoginReq, beid, ptyid int64) (*types.UserReply, error) {
 
 	reply, err := l.svcCtx.UserRpc.Login(l.ctx, &userclient.LoginReq{
 		Mobile:   req.Mobile,
