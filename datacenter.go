@@ -55,13 +55,13 @@ func main() {
 	server := rest.MustNewServer(c.RestConf, rest.WithNotAllowedHandler(middleware.NewCorsMiddleware().Handler()))
 	defer server.Stop()
 	server.Use(middleware.NewCorsMiddleware().Handle)
-	//静太文件处理
+	//静态文件处理
 	staticFileHandler(server)
 	// 设置错误处理函数
 	httpx.SetErrorHandler(shared.ErrorHandler)
 
 	handler.RegisterHandlers(server, ctx)
 
-	fmt.Printf("Starting server xxx at %s:%d...\n", c.Host, c.Port)
+	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
 }

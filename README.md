@@ -279,6 +279,24 @@ func (l *MovieInfoLogic) MovieInfo(req types.MovieReq) (*movieclient.MovieListRe
 }
 ```
 
+## 整合现有的rpc代码
+
+比如想使用一个不错的rpc代码库，但这个库是本地模块的，而没有`github.com`，使用`go mod tidy`是无法从github抓取的
+
+一个变通的办法就是把这个库下载到`GOROOT`，然后就可以直接运行
+
+```bash
+git clone github.com/feihua/zero-admin $GOROOT/go-zero-admin
+go run $GOROOT/src/go-zero-admin/rpc/oms/oms.go -f $GOROOT/src/go-zero-admin/rpc/oms/etc/oms.yaml
+```
+
+然后就可以直接导入了！
+```go
+import "go-admin-zero/rpc/oms/omsclient"
+```
+
+
+
 ### 教训
 
 + 定义文件`proto`和`api`一定要设计精确，命名规范，否则后续修改非常痛苦

@@ -42,7 +42,9 @@ VotesRpc=votes-server #定义投票服务
 MovieRpc=movie-server #定义movie服务
 BookAdderRpc=bookadder-server #定义adder服务
 BookCheckerRpc=bookchecker-server #定义checker服务
-geteWayApi=datacenter-server #定义网关服务
+
+# 设置GatewayApi可执行文件名称
+GateWayApi=datacenter-server #定义网关服务
 
 # 普通Rpc服务启动函数
 RpcServer(){
@@ -81,6 +83,30 @@ Logging() {
     tail -F $1/rpc/nohup.out
 }
 
+# 普通Rpc服务启动函数
+StopAllServer(){
+    kill -9 $(ps -ef|grep "${UserRpc}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "${CommonRpc}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "${VotesRpc}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "${MovieRpc}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "${BookAdderRpc}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "${BookCheckerRpc}"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "${GatewayApi}"|awk '{print $2}') >/dev/null 2>&1
+}
+
+StartAllServer() {
+    RpcServer ${commonPath} ${CommonRpc} ${configPath}
+    RpcServer ${userPath} ${UserRpc} ${configPath}
+    RpcServer ${votesPath} ${VotesRpc} ${configPath}
+    RpcServer ${moviePath} ${MovieRpc} ${configPath}
+    RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
+    RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
+    RpcServerPlus ${getewayPath} search
+    RpcServerPlus ${getewayPath} questions
+    StartServer ${getewayPath} ${GateWayApi} ${geteWayCnf}
+}
+
+
 function start_menu() {
     clear
     green " ===================================="
@@ -96,11 +122,12 @@ function start_menu() {
     green " 6. 搜索服务"
     green " 7. 问答抽奖服务"
     green " 8. 网关入口"
-    green " 9. prometheus"
-    green " 10. 启动全部服务"
+    green " 9. 启动全部服务"
+    green " 10. 停止全部服务"
+    green " 11. prometheus"
     yellow " 0. Exit"
     echo
-    read -p "输入数字:" num
+    read -p "输入数字:   " num
     case "$num" in
     1)
         RpcServer ${commonPath} ${CommonRpc} ${configPath}
@@ -133,22 +160,17 @@ function start_menu() {
         # Logging questions
         ;;
     8)
-        StartServer ${getewayPath} ${geteWayApi} ${gateWayCnf}
+        StartServer ${getewayPath} ${GateWayApi} ${gateWayCnf}
         # tail -F nohup.out
         ;;
     9)
-        /usr/local/Prometheus/prometheus --config.file=config/prometheus/config.yml
+        StartAllServer
         ;;
     10)
-        RpcServer ${commonPath} ${CommonRpc} ${configPath}
-        RpcServer ${userPath} ${UserRpc} ${configPath}
-        RpcServer ${votesPath} ${VotesRpc} ${configPath}
-        RpcServer ${moviePath} ${MovieRpc} ${configPath}
-        RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
-        RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
-        RpcServerPlus ${getewayPath} search
-        RpcServerPlus ${getewayPath} questions
-        StartServer ${getewayPath} ${geteWayApi} ${geteWayCnf}
+        StopAllServer
+        ;;
+    11)
+        /usr/local/Prometheus/prometheus --config.file=config/prometheus/config.yml
         ;;
     0)
         exit 1

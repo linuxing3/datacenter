@@ -21,8 +21,14 @@ yellow() {
 start_mysql() {
   docker kill mysql
   docker rm mysql
-  docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=admin -v $(pwd)/mysql8:/var/lib/mysql -d mysql:8.0.21
+  docker run --name mysql \
+    -p 3306:3306 \
+    -e MYSQL_ROOT_PASSWORD=admin \ 
+    -v $(pwd):/app \ 
+    -v /home/dev/mysql8:/var/lib/mysql \ 
+    -d mysql:8.0.21
 }
+
 ##### 启动redis 服务
 start_redis() {
   docker stop redis
@@ -31,19 +37,21 @@ start_redis() {
   docker run --name redis -d \
     --publish 6379:6379 \
     --env 'REDIS_PASSWORD=admin' \
-    --volume $(pwd)/redis:/var/lib/redis \
+    --volume /home/dev/redis:/var/lib/redis \
+    -v $(pwd):/app \ 
     sameersbn/redis:latest
 }
 
 ### 启动 etcd 服务
-star_etcd() {
-  rm -rf $(pwd)/etcd && mkdir -p $(pwd)/etcd && \
+start_etcd() {
+  rm -rf /home/dev/etcd && mkdir -p /home/dev/etcd && \
     docker stop etcd && \
     docker rm etcd || true && \
     docker run -d \
     -p 2379:2379 \
     -p 2380:2380 \
-    --mount type=bind,source=$(pwd)/etcd,destination=/etcd-data \
+    --mount type=bind,source=/home/dev/etcd,destination=/etcd-data \
+    -v $(pwd):/app \ 
     --name etcd \
     quay.io/coreos/etcd \
     /usr/local/bin/etcd \
@@ -65,7 +73,8 @@ start_es() {
   docker run -d --name es \
     -p 9200:9200 -p 9300:9300 \
     -e "discovery.type=single-node" \
-    -v $(pwd)/elasticsearch:/usr/share/elasticsearch/data \
+    -v $(pwd):/app \ 
+    -v /home/dev/elasticsearch:/usr/share/elasticsearch/data \
     spencezhou/elasticsearch
 }
 
@@ -73,12 +82,15 @@ install_prometheus() {
     wget https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz
     tar -C /usr/local/ -xvf prometheus-2.26.0.linux-amd64.tar.gz
     ln -sv /usr/local/prometheus-2.26.0.linux-amd64/ /usr/local/Prometheus
+    rm prometheus-2.26.0.linux-amd64.tar.gz
+
 }
 
 install_grafana() {
     sudo apt-get install -y adduser libfontconfig1
     wget https://dl.grafana.com/oss/release/grafana_7.5.4_amd64.deb
     sudo dpkg -i grafana_7.5.4_amd64.deb
+    rm grafana_7.5.4_amd64.deb
 }
 
 function start_menu() {
@@ -95,6 +107,7 @@ function start_menu() {
     green " 5. prometheus"
     green " 6. grafana"
     green " 7. all"
+    green " 8. stop all container"
     yellow " 0. Exit"
     echo
     read -p "输入数字:" num
@@ -114,7 +127,7 @@ function start_menu() {
     5)
         start_mysql
         start_redis
-        star_etcd
+        start_etcd
         start_es
         ;;
     6)
@@ -122,6 +135,12 @@ function start_menu() {
         ;;
     7)
         install_grafana
+        ;;
+    8)
+        docker stop es
+        docker stop etcd
+        docker stop mysql
+        docker stop redis
         ;;
     0)
         exit 1
