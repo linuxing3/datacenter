@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"go-zero-admin/rpc/oms/omsclient"
+	"time"
 
 	"datacenter/internal/svc"
 	"datacenter/internal/types"
@@ -64,6 +65,11 @@ func (l *OrderAddLogic) OrderAdd(req types.AddOrderReq) (*types.AddOrderResp, er
 		ConfirmStatus:         req.ConfirmStatus,
 		DeleteStatus:          req.DeleteStatus,
 		UseIntegration:        req.UseIntegration,
+		PaymentTime:           time.Now().Format("2006-01-02 15:04:05"),
+		DeliveryTime:          time.Now().Format("2006-01-02 15:04:05"),
+		ReceiveTime:           time.Now().Format("2006-01-02 15:04:05"),
+		CommentTime:           time.Now().Format("2006-01-02 15:04:05"),
+		ModifyTime:            time.Now().Format("2006-01-02 15:04:05"),
 	})
 
 	if err != nil {
