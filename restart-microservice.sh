@@ -111,6 +111,7 @@ StopAllServer(){
     kill -9 $(ps -ef|grep "pms-server"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "ums-server"|awk '{print $2}') >/dev/null 2>&1
     kill -9 $(ps -ef|grep "sms-server"|awk '{print $2}') >/dev/null 2>&1
+    kill -9 $(ps -ef|grep "sys-server"|awk '{print $2}') >/dev/null 2>&1
 }
 
 StartAllServer() {
@@ -138,62 +139,55 @@ StartAllServer() {
 function start_menu() {
     clear
     green " ===================================="
-    green " Datacenter 微服务 操控中心"
-    green " 系统：debian10+gozero"
+    green " Datacenter/Go-zero-admin微服务控制中心"
+    green " 系统：debian10+"
     green " ===================================="
     echo
-    green " 1. 公共服务"
-    green " 2. 用户服务"
-    green " 3. 投票服务"
-    green " 4. 电影服务"
-    green " 5. 书籍服务"
-    green " 6. 搜索服务"
-    green " 7. 问答抽奖服务"
-    green " 8. 网关入口"
-    green " 9. 启动全部服务"
-    green " 10. 停止全部服务"
-    green " 11. prometheus"
+    red " 1. go-zero-admin服务"
+    red " 2. 公共服务"
+    red " 3. 用户服务"
+    red " 4. 投票服务"
+    red " 5. 电影书籍服务"
+    red " 6. 搜索服务"
+    red " 7. 问答抽奖服务"
+    red " 8. 网关入口"
+    red " 9. 启动全部服务"
+    red " 10. 停止全部服务"
+    red " 11. prometheus"
+    red " 12. grafana"
     yellow " 0. Exit"
     echo
     read -p "输入数字:   " num
     case "$num" in
     1)
-        RpcServer ${commonPath} ${CommonRpc} ${configPath}
-        # Logging common
-        ;;
-    2)
-        RpcServer ${userPath} ${UserRpc} ${configPath}
-        # Logging user
-        ;;
-    3)
-        RpcServer ${votesPath} ${VotesRpc} ${configPath}
-        # Logging votes
-        ;;
-    4)
-        RpcServer ${moviePath} ${MovieRpc} ${configPath}
         RpcServerExtra oms
         RpcServerExtra pms
         RpcServerExtra ums
         RpcServerExtra sms
         RpcServerExtra sys
         ;;
+    2)
+        RpcServer ${commonPath} ${CommonRpc} ${configPath}
+        ;;
+    3)
+        RpcServer ${userPath} ${UserRpc} ${configPath}
+        ;;
+    4)
+        RpcServer ${votesPath} ${VotesRpc} ${configPath}
+        ;;
     5)
+        RpcServer ${moviePath} ${MovieRpc} ${configPath}
         RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}
         RpcServer ${bookCheckPath} ${BookCheckerRpc} ${configPath}
-        # tail -F bookstore/rpc/adder/nohup.out
-        # tail -F bookstore/rpc/checker/nohup.out
         ;;
     6)
         RpcServerPlus ${GatewayPath} search
-        # Logging search
         ;;
     7)
         RpcServerPlus ${GatewayPath} questions
-        # Logging questions
         ;;
     8)
         StartServer ${GatewayPath} ${GateWayApi} ${GateWayCnf}
-        # tail -F nohup.out
         ;;
     9)
         StartAllServer
@@ -203,6 +197,9 @@ function start_menu() {
         ;;
     11)
         /usr/local/Prometheus/prometheus --config.file=config/prometheus/config.yml
+        ;;
+    12)
+        /etc/init.d/grafana start
         ;;
     0)
         exit 1

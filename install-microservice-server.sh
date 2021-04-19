@@ -46,7 +46,7 @@ function start_menu() {
     green " 5. mysql client"
     yellow " 0. Exit"
     echo
-    read -p "输入数字:" num
+    read -p "输入数字:  " num
     case "$num" in
     1)
         docker-compose up -d
