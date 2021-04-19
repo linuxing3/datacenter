@@ -30,7 +30,7 @@ func (l *DatacenterLogic) Datacenter(req types.Request) (*types.Response, error)
 	// 在这里加入业务逻辑，我们用打印日志来代表业务逻辑
 	l.Infof("name: %v", req.Name)
 
-	return &types.Response{Message: "Hello Jack"}, nil
+	return &types.Response{Message: "Hello Daniel"}, nil
 }
 
 func (l *DatacenterLogic) GetJwtToken(ap types.AppUser) (types.JwtToken, error) {

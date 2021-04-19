@@ -29,6 +29,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginLogic {
 
 func (l *LoginLogic) Login(req types.MobileLoginReq, beid, ptyid int64) (*types.UserReply, error) {
 
+	// TODO: 和go-zero-admin/rpc/sys/internal/logic/loginlogic.go对比
 	reply, err := l.svcCtx.UserRpc.Login(l.ctx, &userclient.LoginReq{
 		Mobile:   req.Mobile,
 		Type:     req.Type,
