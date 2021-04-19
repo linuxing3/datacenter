@@ -1,18 +1,19 @@
 version: "3"
 
 services:
-  adminer:
-    image: adminer
-    container_name: datacenter-adminer
-    ports: 
-      - 9434:8080
-    links:
-      - db
-    environment: 
-      - MYSQL_PASSWORD=admin
+  # adminer:
+  #   image: adminer
+  #   container_name: datacenter-adminer
+  #   ports: 
+  #     - 9434:8080
+  #   links:
+  #     - db
+  #   environment: 
+  #     - MYSQL_PASSWORD=admin
   db:
     image: mysql:8.0.21
     container_name: mysql
+    privileged: true
     ports: 
       - 3306:3306
     environment: 
@@ -60,6 +61,7 @@ services:
   es:
     image: spencezhou/elasticsearch:7.6.2
     container_name: es
+    privileged: true
     environment: 
       - discovery.type=single-node
     ports: 

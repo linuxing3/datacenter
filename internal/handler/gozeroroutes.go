@@ -39,246 +39,246 @@ import (
 	smshomenewproduct "datacenter/internal/handler/sms/homenewproduct"
 	smshomerecommendproduct "datacenter/internal/handler/sms/homerecommendproduct"
 	smshomerecommendsubject "datacenter/internal/handler/sms/homerecommendsubject"
-	// sysconfig "datacenter/internal/handler/sys/config"
-	// sysdept "datacenter/internal/handler/sys/dept"
-	// sysdict "datacenter/internal/handler/sys/dict"
-	// syslog "datacenter/internal/handler/sys/log"
-	// sysmenu "datacenter/internal/handler/sys/menu"
-	// sysrole "datacenter/internal/handler/sys/role"
-	// sysuser "datacenter/internal/handler/sys/user"
+	sysconfig "datacenter/internal/handler/sys/config"
+	sysdept "datacenter/internal/handler/sys/dept"
+	sysdict "datacenter/internal/handler/sys/dict"
+	syslog "datacenter/internal/handler/sys/log"
+	sysmenu "datacenter/internal/handler/sys/menu"
+	sysrole "datacenter/internal/handler/sys/role"
+	sysuser "datacenter/internal/handler/sys/user"
 	"datacenter/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
 )
 
 func RegisterGoZeroHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodGet,
-	// 			Path:    "/api/sys/user/currentUser",
-	// 			Handler: sysuser.UserInfoHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/add",
-	// 			Handler: sysuser.UserAddHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/list",
-	// 			Handler: sysuser.UserListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/update",
-	// 			Handler: sysuser.UserUpdateHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/delete",
-	// 			Handler: sysuser.UserDeleteHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/reSetPassword",
-	// 			Handler: sysuser.ReSetPasswordHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/UpdateUserStatus",
-	// 			Handler: sysuser.UpdateUserStatusHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/sys/user/currentUser",
+				Handler: sysuser.UserInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/add",
+				Handler: sysuser.UserAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/list",
+				Handler: sysuser.UserListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/update",
+				Handler: sysuser.UserUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/delete",
+				Handler: sysuser.UserDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/reSetPassword",
+				Handler: sysuser.ReSetPasswordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/UpdateUserStatus",
+				Handler: sysuser.UpdateUserStatusHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/user/login",
-	// 			Handler: sysuser.UserLoginHandler(serverCtx),
-	// 		},
-	// 	},
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/user/login",
+				Handler: sysuser.UserLoginHandler(serverCtx),
+			},
+		},
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/add",
-	// 			Handler: sysrole.RoleAddHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/list",
-	// 			Handler: sysrole.RoleListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/update",
-	// 			Handler: sysrole.RoleUpdateHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/delete",
-	// 			Handler: sysrole.RoleDeleteHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/roleMenuIds",
-	// 			Handler: sysrole.RoleMenuIdsHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/queryMenuByRoleId",
-	// 			Handler: sysrole.QueryMenuByRoleIdHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/role/updateRoleMenu",
-	// 			Handler: sysrole.UpdateRoleMenuHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/add",
+				Handler: sysrole.RoleAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/list",
+				Handler: sysrole.RoleListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/update",
+				Handler: sysrole.RoleUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/delete",
+				Handler: sysrole.RoleDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/roleMenuIds",
+				Handler: sysrole.RoleMenuIdsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/queryMenuByRoleId",
+				Handler: sysrole.QueryMenuByRoleIdHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/role/updateRoleMenu",
+				Handler: sysrole.UpdateRoleMenuHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/menu/add",
-	// 			Handler: sysmenu.MenuAddHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/menu/list",
-	// 			Handler: sysmenu.MenuListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/menu/update",
-	// 			Handler: sysmenu.MenuUpdateHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/menu/delete",
-	// 			Handler: sysmenu.MenuDeleteHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/menu/add",
+				Handler: sysmenu.MenuAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/menu/list",
+				Handler: sysmenu.MenuListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/menu/update",
+				Handler: sysmenu.MenuUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/menu/delete",
+				Handler: sysmenu.MenuDeleteHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dict/add",
-	// 			Handler: sysdict.DictAddHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dict/list",
-	// 			Handler: sysdict.DictListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dict/update",
-	// 			Handler: sysdict.DictUpdateHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dict/delete",
-	// 			Handler: sysdict.DictDeleteHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dict/add",
+				Handler: sysdict.DictAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dict/list",
+				Handler: sysdict.DictListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dict/update",
+				Handler: sysdict.DictUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dict/delete",
+				Handler: sysdict.DictDeleteHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dept/add",
-	// 			Handler: sysdept.DeptAddHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dept/list",
-	// 			Handler: sysdept.DeptListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dept/update",
-	// 			Handler: sysdept.DeptUpdateHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/dept/delete",
-	// 			Handler: sysdept.DeptDeleteHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dept/add",
+				Handler: sysdept.DeptAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dept/list",
+				Handler: sysdept.DeptListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dept/update",
+				Handler: sysdept.DeptUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/dept/delete",
+				Handler: sysdept.DeptDeleteHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/loginLog/list",
-	// 			Handler: syslog.LoginLogListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/loginLog/delete",
-	// 			Handler: syslog.LoginLogDeleteHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/loginLog/list",
+				Handler: syslog.LoginLogListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/loginLog/delete",
+				Handler: syslog.LoginLogDeleteHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/sysLog/list",
-	// 			Handler: syslog.SysLogListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/sysLog/delete",
-	// 			Handler: syslog.SysLogDeleteHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/sysLog/list",
+				Handler: syslog.SysLogListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/sysLog/delete",
+				Handler: syslog.SysLogDeleteHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
-	// engine.AddRoutes(
-	// 	[]rest.Route{
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/config/add",
-	// 			Handler: sysconfig.ConfigAddHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/config/list",
-	// 			Handler: sysconfig.ConfigListHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/config/update",
-	// 			Handler: sysconfig.ConfigUpdateHandler(serverCtx),
-	// 		},
-	// 		{
-	// 			Method:  http.MethodPost,
-	// 			Path:    "/api/sys/config/delete",
-	// 			Handler: sysconfig.ConfigDeleteHandler(serverCtx),
-	// 		},
-	// 	},
-	// 	rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	// )
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/config/add",
+				Handler: sysconfig.ConfigAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/config/list",
+				Handler: sysconfig.ConfigListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/config/update",
+				Handler: sysconfig.ConfigUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sys/config/delete",
+				Handler: sysconfig.ConfigDeleteHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 
 	engine.AddRoutes(
 		[]rest.Route{

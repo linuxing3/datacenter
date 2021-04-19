@@ -26,6 +26,7 @@ type Config struct {
 	PmsRpc     zrpc.RpcClientConf
 	UmsRpc     zrpc.RpcClientConf
 	SmsRpc     zrpc.RpcClientConf
+	SysRpc     zrpc.RpcClientConf
 
 	CacheRedis cache.ClusterConf
 }

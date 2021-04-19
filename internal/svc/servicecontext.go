@@ -17,6 +17,7 @@ import (
 	omsclient "go-zero-admin/rpc/oms/omsclient"
 	pmsclient "go-zero-admin/rpc/pms/pmsclient"
 	smsclient "go-zero-admin/rpc/sms/smsclient"
+	sysclient "go-zero-admin/rpc/sys/sysclient"
 	umsclient "go-zero-admin/rpc/ums/umsclient"
 
 	"datacenter/movies/rpc/movieclient"
@@ -52,6 +53,7 @@ type ServiceContext struct {
 	PmsRpc           pmsclient.Pms  //
 	UmsRpc           umsclient.Ums  //
 	SmsRpc           smsclient.Sms  //
+	SysRpc           sysclient.Sys  //
 	Cache            cache.Cache
 	RedisConn        *redis.Redis
 }
@@ -75,6 +77,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	pms := pmsclient.NewPms(zrpc.MustNewClient(c.PmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	ums := umsclient.NewUms(zrpc.MustNewClient(c.UmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	sms := smsclient.NewSms(zrpc.MustNewClient(c.SmsRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
+	sys := sysclient.NewSys(zrpc.MustNewClient(c.SysRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	// 
 	ur := userclient.NewUser(zrpc.MustNewClient(c.UserRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 	cr := commonclient.NewCommon(zrpc.MustNewClient(c.CommonRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
@@ -102,6 +105,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		PmsRpc:           pms,
 		UmsRpc:           ums,
 		SmsRpc:           sms,
+		SysRpc:           sys,
 		Cache:            ca,
 		RedisConn:        rcon,
 	}

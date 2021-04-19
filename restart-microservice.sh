@@ -129,6 +129,7 @@ StartAllServer() {
     RpcServerExtra pms
     RpcServerExtra ums
     RpcServerExtra sms
+    RpcServerExtra sys
 
     StartServer ${GatewayPath} ${GateWayApi} ${GateWayCnf}
 }
@@ -174,6 +175,7 @@ function start_menu() {
         RpcServerExtra pms
         RpcServerExtra ums
         RpcServerExtra sms
+        RpcServerExtra sys
         ;;
     5)
         RpcServer ${bookAddPath} ${BookAdderRpc} ${configPath}

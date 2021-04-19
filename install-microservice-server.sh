@@ -43,6 +43,7 @@ function start_menu() {
     green " 2. stop all container"
     green " 3. prometheus"
     green " 4. grafana"
+    green " 5. mysql client"
     yellow " 0. Exit"
     echo
     read -p "输入数字:" num
@@ -58,6 +59,9 @@ function start_menu() {
         ;;
     4)
         install_grafana
+        ;;
+    5)
+        docker exec -it mysql mysql -uroot -padmin
         ;;
     0)
         exit 1
