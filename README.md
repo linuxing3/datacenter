@@ -74,17 +74,23 @@ mysql > source sql.sql
 
 ```
 cat etc/datacenter-api.yaml #网关配置，这里是api总的入口
+
 cat user/rpc/etc/rpc.yaml #用户信息配置
 cat common/rpc/etc/rpc.yaml #公共配置
 cat votes/rpc/etc/rpc.yaml #投票配置
 cat search/rpc/etc/search.yaml #搜索配置
 cat questions/rpc/etc/questions.yaml #抽奖配置
+
+cat oms/rpc/etc/oms.yaml #gozero配置
+cat pms/rpc/etc/pms.yaml #gozero配置
+cat ums/rpc/etc/ums.yaml #gozero配置
+cat sys/rpc/etc/sys.yaml #gozero配置
 ```
 
 ### 使用脚本启动所有的Api服务和Rpc服务
 
 ```
-sh restart.sh
+sh restart-microservice.sh
 ```
 
 ### 可以分别查看是否启动成功
@@ -184,7 +190,7 @@ func (l *MoviesLogic) Movies(in *movie.MovieListReq) (*movie.MovieListResp, erro
 
 ### `internal/config/config.go`中
 
-添加一个新配置项`MoviesRpc`，属性是`zrpc.RpcClientConf`
+添加一个新配置项`MoviesRpc`，属性是`zrpc.RpcClientConf`，这是我们用来调用后台rpc服务器的客户端
 
 ### `etc/datacenter-api.yaml`中
 
@@ -202,7 +208,7 @@ MoviesRpc:
 
 在`ServiceContext`结构体中加入一个`MoviesRpc`, 类型为`movieclient.Movies`
 
-#### `movieclient`的定义在`movie.pb.go`文件中，实际上是一个客户端连接的接口
+#### `movieclient`结构体定义在`movie.pb.go`文件中，包含了一个客户端连接的~接口~
 
 ```go
 type moviesClient struct {
@@ -230,7 +236,7 @@ func (c *moviesClient) Movies(ctx context.Context, in *MovieListReq, opts ...grp
 	mr := movieclient.NewMovies(zrpc.MustNewClient(c.MoviesRpc, zrpc.WithUnaryClientInterceptor(timeInterceptor)))
 ```
 
-### `/internal/handler/routes`中添加路由和处理器
+### `/internal/handler/routes`中添加路由route和处理器handler
 
 ```go
 // import movie "datacenter/internal/handler/movies"
@@ -249,14 +255,14 @@ func (c *moviesClient) Movies(ctx context.Context, in *MovieListReq, opts ...grp
 	)
 ```
 
-### `internal/handler/movies/movieinfohandler`中添加对`logic`的调用方法
+### `internal/handler/movies/movieinfohandler`中添加对业务逻辑代码`logic`的调用方法
 
 ```go
 		l := logic.NewMovieInfoLogic(r.Context(), ctx)
 		resp, err := l.MovieInfo(req)
 ```
 
-### `internal/logic/movies/movieinfologic`中添加真正处理数据的业务逻辑（这里终于可以和Rpc进行交互了！！！）
+### `internal/logic/movies/movieinfologic`中才是真正处理数据的业务逻辑（这里终于可以和Rpc进行交互了！！！）
 
 主要是通过调用`datacenter-api`上下文中的`MoviesRpc`对象的`Movies`方法向后台`Rpc`服务器发送请求
 
@@ -287,6 +293,9 @@ func (l *MovieInfoLogic) MovieInfo(req types.MovieReq) (*movieclient.MovieListRe
 
 比如想使用一个不错的rpc代码库，但这个库是本地模块的，而没有`github.com`，使用`go mod tidy`是无法从github抓取的
 
+
+###  直接放入GOROOT
+
 一个变通的办法就是把这个库下载到`GOROOT`，然后就可以直接运行
 
 ```bash
@@ -299,6 +308,20 @@ go run $GOROOT/src/go-zero-admin/rpc/oms/oms.go -f $GOROOT/src/go-zero-admin/rpc
 import "go-admin-zero/rpc/oms/omsclient"
 ```
 
+### 如何使用前端api调用handler和logic代码？
+
+拷贝相关代码到实际的`internal/handler`和`internal/logic`目录下
+
+> 注意在每个文件中修改导入文件的路径
+
+```go
+	// logic "<原来的api目录>/internal/logic/member/address"
+	logic "datacenter/internal/logic/member/address"
+	// "<原来的api目录>/internal/svc"
+	"datacenter/internal/svc"
+	// "<原来的api目录>/internal/types"
+	"datacenter/internal/types"
+```
 
 
 ### 教训
