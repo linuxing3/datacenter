@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+  app:
+    image: linuxing3/datacenter
+    # container_name: datacenter-app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 18087:8887
+    links: 
+      - db
+      - cache
+      - etcd
+      - es
   adminer:
     image: adminer
     container_name: datacenter-adminer
