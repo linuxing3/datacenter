@@ -1,0 +1,43 @@
+POST http://pro.gce.xunqinji.xyz:8887/api/member/member/list HTTP/1.1
+content-type: application/json
+
+{
+	"current": 0,
+    "pageSize": 5
+}
+
+### 
+
+POST http://pro.gce.xunqinji.xyz:8887/user/login HTTP/1.1
+content-type: application/json
+ptyid: 1
+beid: 1
+
+{
+   "type":1,
+   "password":"20090909",
+   "mobile":"13901229638"
+}
+
+### 
+
+POST http://pro.gce.xunqinji.xyz:8887/user/login HTTP/1.1
+content-type: application/json
+ptyid: 1
+beid: 1
+
+{
+   "type":1,
+   "password":"20090909",
+   "mobile":"13901229638"
+}
+
+### 
+
+POST http://pro.gce.xunqinji.xyz:8887/movies/info HTTP/1.1
+content-type: application/json
+authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWlkIjowLCJiZWlkIjoxLCJleHAiOjE2MTkwNjU5MjEsImlhdCI6MTYxODk3OTUyMSwib3BlbmlkIjoiIiwicHR5aWQiOjEsInVpZCI6M30.8zuu_d2FbQ3FtFE4wbjWi7ehB-YVPr7hBubIChBoVcM
+
+{
+   "id": "5"
+}
