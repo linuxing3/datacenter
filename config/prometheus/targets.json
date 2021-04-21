@@ -1,11 +1,29 @@
 [
   {
-      "targets": ["127.0.0.1:8088"],
+      "targets": ["127.0.0.1:9091"],
       "labels": {
-          "job": "movie-api",
-          "app": "movie-api",
+          "job": "datacenter-api",
+          "app": "datacenter-api",
           "env": "test",
           "instance": "127.0.0.1:8887"
+      }
+  },
+  {
+      "targets": ["127.0.0.1:9091"],
+      "labels": {
+          "job": "gozero-oms-rpc",
+          "app": "gozero-oms-rpc",
+          "env": "test",
+          "instance": "127.0.0.1:8183"
+      }
+  },
+  {
+      "targets": ["127.0.0.1:9091"],
+      "labels": {
+          "job": "gozero-pms-rpc",
+          "app": "gozero-pms-rpc",
+          "env": "test",
+          "instance": "127.0.0.1:8182"
       }
   }
 ]

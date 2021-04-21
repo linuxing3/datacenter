@@ -136,6 +136,12 @@ StartAllServer() {
 }
 
 
+StartPrometheusDocker() {
+    docker run -itd -p 9090:9090 \ 
+        -v ./config/prometheus.yml:/etc/prometheus/prometheus.yml \
+        --name prom prom/prometheus
+}
+
 function start_menu() {
     clear
     green " ===================================="
@@ -196,7 +202,7 @@ function start_menu() {
         StopAllServer
         ;;
     11)
-        /usr/local/Prometheus/prometheus --config.file=config/prometheus/config.yml
+        nohup /usr/local/Prometheus/prometheus --config.file=config/prometheus/config.yml
         ;;
     12)
         /etc/init.d/grafana start

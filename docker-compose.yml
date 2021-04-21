@@ -1,15 +1,15 @@
 version: "3"
 
 services:
-  # adminer:
-  #   image: adminer
-  #   container_name: datacenter-adminer
-  #   ports: 
-  #     - 9434:8080
-  #   links:
-  #     - db
-  #   environment: 
-  #     - MYSQL_PASSWORD=admin
+  adminer:
+    image: adminer
+    container_name: datacenter-adminer
+    ports: 
+      - 18080:8080
+    links:
+      - db
+    environment: 
+      - MYSQL_PASSWORD=admin
   db:
     image: mysql:8.0.21
     container_name: mysql
@@ -69,3 +69,25 @@ services:
       - 9300:9300
     volumes: 
       - /home/dev/elasticsearch:/usr/share/elasticsearch/data
+  # monitor:
+  #   image: prom/prometheus
+  #   container_name: prom
+  #   ports: 
+  #     - 9090:9090
+  #     - 9091:9091
+  #   volumes: 
+  #     - ./config/prometheus/config.yml:/etc/prometheus/prometheus.yml
+  #     - ./config/prometheus/targets.json:/etc/prometheus/targets.json
+  # panel:
+  #   image: grafana/grafana
+  #   container_name: grafana
+  #   cpus: 4
+  #   mem_limit: 4g
+  #   networks: 
+  #     - trust139
+  #   ipv4_address: 10.2.139.211 
+  #   ports:
+  #     - 3000:3000
+  #   environment: 
+  #     - GF_SECURITY_ADMIN_PASSWORD=passwd
+  #     - GF_SERVER_ROOT_URL=http://10.2.139.211
