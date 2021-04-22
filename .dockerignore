@@ -1,11 +1,10 @@
 .git
 .DS_Store
 *-server
-nohup.out
 */**/*-server
-*/rpc/nohup.out
+nohup.out
+*/**/nohup.out
 datacenter-api.yaml
-user/api/etc/user-api.yaml
 mysql8
 redis
 etcd
